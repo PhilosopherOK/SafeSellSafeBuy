@@ -95,16 +95,16 @@ public class User {
         return sellProducts;
     }
 
-    public void setSellProducts(List<Product> sellProducts) {
-        this.sellProducts = sellProducts;
+    public void setSellProducts(Product product) {
+        sellProducts.add(product);
     }
 
     public List<Product> getBuyProducts() {
         return buyProducts;
     }
 
-    public void setBuyProducts(List<Product> buyProducts) {
-        this.buyProducts = buyProducts;
+    public void setBuyProducts(Product product) {
+        buyProducts.add(product);
     }
 
     public String getLogin() {

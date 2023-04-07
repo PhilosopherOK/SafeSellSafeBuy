@@ -22,6 +22,21 @@ public class Product {
     @Column(name = "long_description")
     private String longDescription;
 
+    @Column(name = "loginInGame")
+    private String loginInGame;
+
+    @Column(name = "passwordInGame")
+    private String passwordInGame;
+
+    @Column(name = "emailInGame")
+    private String emailInGame;
+
+    @Column(name = "secretQuestion")
+    private String secretQuestion;
+
+    @Column(name = "secretAnswer")
+    private String secretAnswer;
+
     @ManyToOne
     @JoinColumn(name = "seller", referencedColumnName = "sellProducts")
     private User seller;
@@ -33,12 +48,59 @@ public class Product {
     public Product() {
     }
 
-    public Product(String title, int price, String shortDescription, String longDescription, User seller) {
+    public Product(String title, int price, String shortDescription,
+                   String longDescription, String loginInGame,
+                   String passwordInGame, String emailInGame,
+                   String secretQuestion, String secretAnswer) {
         this.title = title;
         this.price = price;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
-        this.seller = seller;
+        this.loginInGame = loginInGame;
+        this.passwordInGame = passwordInGame;
+        this.emailInGame = emailInGame;
+        this.secretQuestion = secretQuestion;
+        this.secretAnswer = secretAnswer;
+    }
+
+    public String getLoginInGame() {
+        return loginInGame;
+    }
+
+    public void setLoginInGame(String loginInGame) {
+        this.loginInGame = loginInGame;
+    }
+
+    public String getPasswordInGame() {
+        return passwordInGame;
+    }
+
+    public void setPasswordInGame(String passwordInGame) {
+        this.passwordInGame = passwordInGame;
+    }
+
+    public String getEmailInGame() {
+        return emailInGame;
+    }
+
+    public void setEmailInGame(String emailInGame) {
+        this.emailInGame = emailInGame;
+    }
+
+    public String getSecretQuestion() {
+        return secretQuestion;
+    }
+
+    public void setSecretQuestion(String secretQuestion) {
+        this.secretQuestion = secretQuestion;
+    }
+
+    public String getSecretAnswer() {
+        return secretAnswer;
+    }
+
+    public void setSecretAnswer(String secretAnswer) {
+        this.secretAnswer = secretAnswer;
     }
 
     public int getId() {
