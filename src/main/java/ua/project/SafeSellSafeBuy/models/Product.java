@@ -38,11 +38,11 @@ public class Product {
     private String secretAnswer;
 
     @ManyToOne
-    @JoinColumn(name = "seller", referencedColumnName = "sellProducts")
+    @JoinColumn(name = "seller", referencedColumnName = "id")
     private User seller;
 
     @ManyToOne
-    @JoinColumn(name = "buyer", referencedColumnName = "buyProducts")
+    @JoinColumn(name = "buyer", referencedColumnName = "id")
     private User buyer;
 
     public Product() {

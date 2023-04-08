@@ -2,10 +2,12 @@ package ua.project.SafeSellSafeBuy.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.project.SafeSellSafeBuy.models.Product;
 import ua.project.SafeSellSafeBuy.models.User;
 import ua.project.SafeSellSafeBuy.repositories.ProductRepositories;
 import ua.project.SafeSellSafeBuy.repositories.UsersRepositories;
+
 
 @Service
 public class UsersService {
@@ -17,8 +19,8 @@ public class UsersService {
         this.usersRepositories = usersRepositories;
         this.productRepositories = productRepositories;
     }
-
-    public User findOne(int id) {
+    @Transactional(readOnly = true)
+    public User findById(int id) {
         return usersRepositories.findById(id).orElse(null);
     }
 
@@ -27,18 +29,25 @@ public class UsersService {
         usersRepositories.save(user);
     }
 
+
     public void create(User user) {
         usersRepositories.save(user);
     }
 
+
+    public void delete(int id){
+        usersRepositories.deleteById(id);
+    }
+
     public void addProductOnSell(int id, Product product) {
-        User user = findOne(id);
+        User user = findById(id);
         user.setSellProducts(product);
         productRepositories.findById(product.getId()).get().setSeller(user);
     }
 
+
     public void addProductOnBuy(int id, Product product) {
-        User user = findOne(id);
+        User user = findById(id);
         user.setBuyProducts(product);
         productRepositories.findById(product.getId()).get().setBuyer(user);
     }

@@ -24,6 +24,13 @@ public class UsersController {
         this.productService = productService;
     }
 
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id,
+                       Model model) {
+        model.addAttribute("user", usersService.findById(id));
+        return "user/profile";
+    }
+
     @GetMapping("/create")
     public String createUser(@ModelAttribute("user") User user) {
         return "user/create";
@@ -36,23 +43,30 @@ public class UsersController {
             return "user/create";
 
         usersService.create(user);
-        return "redirect:/user";
+        return "redirect:/user/"+user.getId();
     }
+
 
     @GetMapping("/{id}/update")
     public String updateBlanc(@PathVariable("id") int id,
-                              Model model){
-        model.addAttribute("user", usersService.findOne(id));
+                              Model model) {
+        model.addAttribute("user", usersService.findById(id));
         return "user/update";
     }
 
-    @PostMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user,@PathVariable("id") int id,
-                         BindingResult bindingResult){
-        if(bindingResult.hasErrors())
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("user") @Valid User user, @PathVariable("id") int id,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
             return "user/update";
 
         usersService.update(id, user);
-        return "redirect:/user";
+        return "redirect:/user/"+id;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable("id") int id) {
+        usersService.delete(id);
+        return "redirect:/product/main";
     }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update user</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/user/{id}(id=${user.getId()})}" th:object="${user}">
+    <label for="First_name">Enter first_name: </label>
+    <input type="text" th:field="*{first_name}" id="First_name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('first_name')}" th:errors="*{first_name}">first_name Error</div>
+    <br/>
+    <label for="last_name">Enter last_name: </label>
+    <input type="text" th:field="*{last_name}" id="last_name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('last_name')}" th:errors="*{last_name}">last_name Error</div>
+    <br/>
+    <label for="year_of_birthday">Enter year_of_birthday: </label>
+    <input type="text" th:field="*{year_of_birthday}" id="year_of_birthday"/>
+    <div style="color:red" th:if="${#fields.hasErrors('year_of_birthday')}" th:errors="*{year_of_birthday}">year_of_birthday Error</div>
+    <br/>
+    <label for="cardNumber">Enter cardNumber: </label>
+    <input type="text" th:field="*{cardNumber}" id="cardNumber"/>
+    <div style="color:red" th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}">cardNumber Error</div>
+    <br/>
+    <label for="login">Enter login: </label>
+    <input type="text" th:field="*{login}" id="login"/>
+    <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">login Error</div>
+    <br/>
+    <label for="password">Enter password: </label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</div>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
+
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body>
+
+
+<a th:text="${user.getFirst_name()}">user</a>
+<a th:text="${user.getLast_name()}">user</a>
+<a th:text="${user.getYear_of_birthday()}">user</a>
+
+
+<div th:if="user.getCardNumber() != null">
+    <p th:text="${user.getCardNumber()}">cardNumber</p>
+</div>
+
+<br/>
+<hr/>
+<div th:if!="${user.getSellProducts().isEmpty()}">
+    <div th:each="product : ${user.getSellProducts()}">
+        <a th:href="@{/product/{id}(id=${product.getId()})}">product</a>
+        <p th:text="${product.getTitle() + ', ' + product.getPrice()}">product</p>
+    </div>
+</div>
+
+<br/>
+<hr/>
+<div th:if!="${user.getBuyProducts().isEmpty()}">
+    <div th:each="product : ${user.getBuyProducts()}">
+        <a th:href="@{/product/{id}(id=${product.getId()})}">product</a>
+        <p th:text="${product.getTitle() + ', ' + product.getPrice()}">product</p>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "User")
+@Table(name = "Users")
 public class User {
     @Id
     @Column(name = "id")
@@ -17,38 +17,34 @@ public class User {
     @Column(name = "last_name")
     private String last_name;
 
-    @Column(name = "year_of_birthday")
-    private Date year_of_birthday;
+    @Column(name = "date_of_birthday")
+    private Date date_of_birthday;
 
     @Column(name = "cardNumber")
     private String cardNumber;
 
-    @OneToMany
-    @Column(name = "sellProducts")
+    @OneToMany(mappedBy = "seller")
     private List<Product> sellProducts;
 
-    @OneToMany
-    @Column(name = "buyProducts")
+    @OneToMany(mappedBy = "buyer")
     private List<Product> buyProducts;
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "userLogin")
+    private String userLogin;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "userPassword")
+    private String userPassword;
 
     public User() {
     }
 
-    public User(String first_name, String last_name, Date year_of_birthday,
-                List<Product> sellProducts, List<Product> buyProducts, String login, String password) {
+    public User(String first_name, String last_name, Date date_of_birthday,
+                String userLogin, String userPassword) {
         this.first_name = first_name;
         this.last_name = last_name;
-        this.year_of_birthday = year_of_birthday;
-        this.sellProducts = sellProducts;
-        this.buyProducts = buyProducts;
-        this.login = login;
-        this.password = password;
+        this.date_of_birthday = date_of_birthday;
+        this.userLogin = userLogin;
+        this.userPassword = userPassword;
     }
 
     public int getId() {
@@ -75,12 +71,12 @@ public class User {
         this.last_name = last_name;
     }
 
-    public Date getYear_of_birthday() {
-        return year_of_birthday;
+    public Date getDate_of_birthday() {
+        return date_of_birthday;
     }
 
-    public void setYear_of_birthday(Date year_of_birthday) {
-        this.year_of_birthday = year_of_birthday;
+    public void setDate_of_birthday(Date date_of_birthday) {
+        this.date_of_birthday = date_of_birthday;
     }
 
     public String getCardNumber() {
@@ -107,19 +103,19 @@ public class User {
         buyProducts.add(product);
     }
 
-    public String getLogin() {
-        return login;
+    public String getUserLogin() {
+        return userLogin;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUserLogin(String login) {
+        this.userLogin = login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserPassword(String password) {
+        this.userPassword = password;
     }
 }
