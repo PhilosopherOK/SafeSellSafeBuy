@@ -22,7 +22,7 @@ public class ProductsController {
 
     @GetMapping("/main")
     public String mainPage(Model model){
-        model.addAttribute("product", productService.allProduct());
+        model.addAttribute("products", productService.allProduct());
         return "product/main";
     }
 
@@ -46,6 +46,28 @@ public class ProductsController {
         return "redirect:/product/main";
     }
 
+    @GetMapping("/{id}/update")
+    public String updateProductG(@PathVariable("id") int id, Model model){
+        model.addAttribute("product", productService.findById(id));
+        return "product/update";
+    }
+
+    @PatchMapping("/{id}")
+    public String updateProductP(@PathVariable("id") int id,
+                                 @ModelAttribute("product") @Valid Product product,
+                                 BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return "product/update";
+
+        productService.updateProduct(id, product);
+        return "redirect:/product/"+id;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable("id") int id){
+        productService.deleteProduct(id);
+        return "redirect:/product/main";
+    }
 
 
 

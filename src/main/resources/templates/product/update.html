@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Update product</title>
 </head>
 <body>
+
+<form th:method="PATCH" th:action="@{/product/{id}(id=${product.getId()})}" th:object="${product}">
+    <label for="title">Enter title: </label>
+    <input type="text" th:field="*{title}" id="title"/>
+    <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title Error</div>
+    <br/>
+    <label for="price">Enter price: </label>
+    <input type="text" th:field="*{price}" id="price"/>
+    <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">price Error</div>
+    <br/>
+    <label for="shortDescription">Enter shortDescription: </label>
+    <input type="text" th:field="*{shortDescription}" id="shortDescription"/>
+    <div style="color:red" th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}">year_of_birthday Error</div>
+    <br/>
+    <label for="longDescription">Enter longDescription: </label>
+    <input type="text" th:field="*{longDescription}" id="longDescription"/>
+    <div style="color:red" th:if="${#fields.hasErrors('longDescription')}" th:errors="*{longDescription}">longDescription Error</div>
+    <br/>
+    <label for="loginInGame">Enter loginInGame: </label>
+    <input type="text" th:field="*{loginInGame}" id="loginInGame"/>
+    <div style="color:red" th:if="${#fields.hasErrors('loginInGame')}" th:errors="*{loginInGame}">loginInGame Error</div>
+    <br/>
+    <label for="passwordInGame">Enter passwordInGame: </label>
+    <input type="text" th:field="*{passwordInGame}" id="passwordInGame"/>
+    <div style="color:red" th:if="${#fields.hasErrors('passwordInGame')}" th:errors="*{passwordInGame}">passwordInGame Error</div>
+    <br/>
+    <label for="emailInGame">Enter emailInGame: </label>
+    <input type="text" th:field="*{emailInGame}" id="emailInGame"/>
+    <div style="color:red" th:if="${#fields.hasErrors('emailInGame')}" th:errors="*{emailInGame}">emailInGame Error</div>
+    <br/>
+    <label for="secretQuestion">Enter secretQuestion: </label>
+    <input type="text" th:field="*{secretQuestion}" id="secretQuestion"/>
+    <div style="color:red" th:if="${#fields.hasErrors('secretQuestion')}" th:errors="*{secretQuestion}">secretQuestion Error</div>
+    <br/><br/>
+    <label for="secretAnswer">Enter secretAnswer: </label>
+    <input type="text" th:field="*{secretAnswer}" id="secretAnswer"/>
+    <div style="color:red" th:if="${#fields.hasErrors('secretAnswer')}" th:errors="*{secretAnswer}">secretAnswer Error</div>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
 
 </body>
 </html>

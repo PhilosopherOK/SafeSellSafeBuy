@@ -1,6 +1,6 @@
 package ua.project.SafeSellSafeBuy.services;
 
-import org.springframework.security.core.parameters.P;
+
 import org.springframework.stereotype.Service;
 import ua.project.SafeSellSafeBuy.models.Product;
 import ua.project.SafeSellSafeBuy.repositories.ProductRepositories;
