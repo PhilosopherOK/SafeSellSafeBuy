@@ -8,11 +8,13 @@
 
 
 <a th:text="${user.getFirst_name()}">user</a>
+<br/>
 <a th:text="${user.getLast_name()}">user</a>
-<a th:text="${user.getYear_of_birthday()}">user</a>
+<br/>
+<a th:text="${user.getDate_of_birthday()}">user</a>
+<br/>
 
-
-<div th:if="user.getCardNumber() != null">
+<div th:if="${user.getCardNumber() != null}">
     <p th:text="${user.getCardNumber()}">cardNumber</p>
 </div>
 
@@ -20,17 +22,19 @@
 <hr/>
 <div th:if!="${user.getSellProducts().isEmpty()}">
     <div th:each="product : ${user.getSellProducts()}">
-        <a th:href="@{/product/{id}(id=${product.getId()})}">product</a>
-        <p th:text="${product.getTitle() + ', ' + product.getPrice()}">product</p>
+        <a th:href="@{/product/{id}(id=${product.getId()})}"><p th:text="${product.getTitle()}"</p></a>
+        <p th:text="${product.getPrice() + ', ' + product.getShort_description()}">product</p>
+        <hr/>
     </div>
 </div>
 
 <br/>
 <hr/>
+
 <div th:if!="${user.getBuyProducts().isEmpty()}">
     <div th:each="product : ${user.getBuyProducts()}">
-        <a th:href="@{/product/{id}(id=${product.getId()})}">product</a>
-        <p th:text="${product.getTitle() + ', ' + product.getPrice()}">product</p>
+        <a th:href="@{/product/{id}(id=${product.getId()})}"><p th:text="${product.getTitle()}"</p></a>
+        <p th:text="${product.getPrice() + ', ' + product.getShort_description()}">product</p><hr/>
     </div>
 </div>
 

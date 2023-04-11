@@ -15,33 +15,33 @@
     <input type="text" th:field="*{price}" id="price"/>
     <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">price Error</div>
     <br/>
-    <label for="shortDescription">Enter shortDescription: </label>
-    <input type="text" th:field="*{shortDescription}" id="shortDescription"/>
-    <div style="color:red" th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}">year_of_birthday Error</div>
+    <label for="short_description">Enter short_description: </label>
+    <input type="text" th:field="*{short_description}" id="short_description"/>
+    <div style="color:red" th:if="${#fields.hasErrors('short_description')}" th:errors="*{short_description}">short_description Error</div>
     <br/>
-    <label for="longDescription">Enter longDescription: </label>
-    <input type="text" th:field="*{longDescription}" id="longDescription"/>
-    <div style="color:red" th:if="${#fields.hasErrors('longDescription')}" th:errors="*{longDescription}">longDescription Error</div>
+    <label for="long_description">Enter long_description: </label>
+    <input type="text" th:field="*{long_description}" id="long_description"/>
+    <div style="color:red" th:if="${#fields.hasErrors('long_description')}" th:errors="*{long_description}">long_description Error</div>
     <br/>
-    <label for="loginInGame">Enter loginInGame: </label>
-    <input type="text" th:field="*{loginInGame}" id="loginInGame"/>
-    <div style="color:red" th:if="${#fields.hasErrors('loginInGame')}" th:errors="*{loginInGame}">loginInGame Error</div>
+    <label for="login_in_game">Enter login_in_game: </label>
+    <input type="text" th:field="*{login_in_game}" id="login_in_game"/>
+    <div style="color:red" th:if="${#fields.hasErrors('login_in_game')}" th:errors="*{login_in_game}">login_in_game Error</div>
     <br/>
-    <label for="passwordInGame">Enter passwordInGame: </label>
-    <input type="text" th:field="*{passwordInGame}" id="passwordInGame"/>
-    <div style="color:red" th:if="${#fields.hasErrors('passwordInGame')}" th:errors="*{passwordInGame}">passwordInGame Error</div>
+    <label for="password_in_game">Enter password_in_game: </label>
+    <input type="text" th:field="*{password_in_game}" id="password_in_game"/>
+    <div style="color:red" th:if="${#fields.hasErrors('password_in_game')}" th:errors="*{password_in_game}">password_in_game Error</div>
     <br/>
-    <label for="emailInGame">Enter emailInGame: </label>
-    <input type="text" th:field="*{emailInGame}" id="emailInGame"/>
-    <div style="color:red" th:if="${#fields.hasErrors('emailInGame')}" th:errors="*{emailInGame}">emailInGame Error</div>
+    <label for="email_in_game">Enter email_in_game: </label>
+    <input type="text" th:field="*{email_in_game}" id="email_in_game"/>
+    <div style="color:red" th:if="${#fields.hasErrors('email_in_game')}" th:errors="*{email_in_game}">email_in_game Error</div>
     <br/>
-    <label for="secretQuestion">Enter secretQuestion: </label>
-    <input type="text" th:field="*{secretQuestion}" id="secretQuestion"/>
-    <div style="color:red" th:if="${#fields.hasErrors('secretQuestion')}" th:errors="*{secretQuestion}">secretQuestion Error</div>
+    <label for="secret_question">Enter secret_question: </label>
+    <input type="text" th:field="*{secret_question}" id="secret_question"/>
+    <div style="color:red" th:if="${#fields.hasErrors('secret_question')}" th:errors="*{secret_question}">secret_question Error</div>
     <br/><br/>
-    <label for="secretAnswer">Enter secretAnswer: </label>
-    <input type="text" th:field="*{secretAnswer}" id="secretAnswer"/>
-    <div style="color:red" th:if="${#fields.hasErrors('secretAnswer')}" th:errors="*{secretAnswer}">secretAnswer Error</div>
+    <label for="secret_answer">Enter secret_answer: </label>
+    <input type="text" th:field="*{secret_answer}" id="secret_answer"/>
+    <div style="color:red" th:if="${#fields.hasErrors('secret_answer')}" th:errors="*{secret_answer}">secret_answer Error</div>
     <br/>
     <input type="submit" value="Update!"/>
 </form>

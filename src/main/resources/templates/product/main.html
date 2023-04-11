@@ -8,12 +8,10 @@
 
 
 <div th:each="product : ${products}">
-    <a th:href="@{/product/{id}(id=${product.getId()})}"
-       th:text="${product.getTitle() + ', ' + product.getPrice() + ', ' + product.getShortDescription()}">product</a>
+    <a th:href="@{/product/{id}(id=${product.getId()})}"><p th:text="${product.getTitle()}"</p></a>
+    <p th:text="${product.getPrice() + ', ' + product.getShort_description()}">product</p>
+    <hr/>
 </div>
-
-<br/>
-<hr/>
 
 
 </body>

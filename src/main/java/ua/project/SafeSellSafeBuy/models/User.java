@@ -18,33 +18,34 @@ public class User {
     private String last_name;
 
     @Column(name = "date_of_birthday")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date_of_birthday;
 
     @Column(name = "cardNumber")
     private String cardNumber;
 
-    @OneToMany(mappedBy = "seller")
+    @OneToMany(mappedBy = "seller", fetch = FetchType.EAGER)
     private List<Product> sellProducts;
 
     @OneToMany(mappedBy = "buyer")
     private List<Product> buyProducts;
 
     @Column(name = "userLogin")
-    private String userLogin;
+    private String login;
 
     @Column(name = "userPassword")
-    private String userPassword;
+    private String password;
 
     public User() {
     }
 
     public User(String first_name, String last_name, Date date_of_birthday,
-                String userLogin, String userPassword) {
+                String login, String password) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.date_of_birthday = date_of_birthday;
-        this.userLogin = userLogin;
-        this.userPassword = userPassword;
+        this.login = login;
+        this.password = password;
     }
 
     public int getId() {
@@ -103,19 +104,24 @@ public class User {
         buyProducts.add(product);
     }
 
-    public String getUserLogin() {
-        return userLogin;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUserLogin(String login) {
-        this.userLogin = login;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String password) {
-        this.userPassword = password;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return first_name  + " " + last_name ;
     }
 }
