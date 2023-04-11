@@ -32,18 +32,23 @@ public class ProductsController {
         return "product/show";
     }
 
-    @GetMapping("/create")
-    public String createProductG(@ModelAttribute("product") Product product){
+    @GetMapping("/{id}/create")
+    public String createProductG(@ModelAttribute("product") Product product, @PathVariable("id") int id, Model model){
+        model.addAttribute("user_id", id);
         return "product/create";
     }
 
-    @PostMapping()
-    public String createProductP(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult){
+    @PostMapping("/{id}")
+    public String createProductP(@ModelAttribute("product") @Valid Product product,
+                                 @PathVariable("id") int id, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return "product/create";
 
         productService.createProduct(product);
-        return "redirect:/product/main";
+        productService.addProductOnSell(id, product);
+
+        return "redirect:/user/"+id;
+      //  return "redirect:/product/main";
     }
 
     @GetMapping("/{id}/update")

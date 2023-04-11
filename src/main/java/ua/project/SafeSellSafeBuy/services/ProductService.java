@@ -3,6 +3,7 @@ package ua.project.SafeSellSafeBuy.services;
 
 import org.springframework.stereotype.Service;
 import ua.project.SafeSellSafeBuy.models.Product;
+import ua.project.SafeSellSafeBuy.models.User;
 import ua.project.SafeSellSafeBuy.repositories.ProductRepositories;
 
 import java.util.List;
@@ -10,9 +11,12 @@ import java.util.List;
 @Service
 public class ProductService {
     private final ProductRepositories productRepositories;
+    private final UsersService usersService;
 
-    public ProductService(ProductRepositories productRepositories) {
+    public ProductService(ProductRepositories productRepositories, UsersService usersService) {
         this.productRepositories = productRepositories;
+
+        this.usersService = usersService;
     }
 
     public List<Product> allProduct(){
@@ -43,7 +47,21 @@ public class ProductService {
         productRepositories.save(product);
     }
 
+    public void addProductOnSell(int id, Product product) {
+        User user = usersService.findById(id);
+        user.setSellProducts(product);
+        Product productWithSeller = findById(product.getId());
+        productWithSeller.setSeller(user);
+        usersService.update(user.getId(), user);
+        updateProduct(product.getId(), product);
+    }
 
+
+    public void addProductOnBuy(int id, Product product) {
+        User user = usersService.findById(id);
+        user.setBuyProducts(product);
+        findById(product.getId()).setBuyer(user);
+    }
 
 
 

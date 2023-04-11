@@ -39,16 +39,5 @@ public class UsersService {
         usersRepositories.deleteById(id);
     }
 
-    public void addProductOnSell(int id, Product product) {
-        User user = findById(id);
-        user.setSellProducts(product);
-        productRepositories.findById(product.getId()).get().setSeller(user);
-    }
 
-
-    public void addProductOnBuy(int id, Product product) {
-        User user = findById(id);
-        user.setBuyProducts(product);
-        productRepositories.findById(product.getId()).get().setBuyer(user);
-    }
 }

@@ -39,8 +39,9 @@
 </div>
 
 
-
-<a href="/product/create">Create new product</a>
+<form th:method="GET" th:action="@{/product/{id}/create(id=${user.getId()})}">
+    <input type="submit" value="Create new product"/>
+</form>
 
 </body>
 </html>
