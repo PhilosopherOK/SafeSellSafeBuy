@@ -6,11 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ua.project.SafeSellSafeBuy.models.User;
 import ua.project.SafeSellSafeBuy.services.ProductService;
 import ua.project.SafeSellSafeBuy.services.UsersService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/user")
@@ -68,5 +70,22 @@ public class UsersController {
     public String deleteUser(@PathVariable("id") int id) {
         usersService.delete(id);
         return "redirect:/product/main";
+    }
+
+
+    @PostMapping("/uploadImage")
+    public String uploadImage(@RequestParam("imageFile")MultipartFile imageFile,
+                              Model model){
+        String returnValue = "user/profile";
+        try {
+            usersService.saveImage(imageFile);
+            User user = new User();
+            model.addAttribute("user", user);
+            returnValue = "user/profile";
+        } catch (IOException e) {
+            e.printStackTrace();
+            returnValue = "error";
+        }
+        return returnValue;
     }
 }

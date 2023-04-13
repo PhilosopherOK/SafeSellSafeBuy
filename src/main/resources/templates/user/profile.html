@@ -43,5 +43,16 @@
     <input type="submit" value="Create new product"/>
 </form>
 
+
+<br/>
+<hr/>
+
+<p th:text="${user}"/>
+
+<form method="POST" enctype="multipart/form-data" action="/uploadImage">
+    <input type="file" name="imageFile"/>
+    <input type="submit" value="Upload"/>
+</form>
+
 </body>
 </html>
