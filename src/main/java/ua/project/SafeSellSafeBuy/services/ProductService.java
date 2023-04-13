@@ -32,6 +32,13 @@ public class ProductService {
     }
 
     public void createProduct(Product product){
+        int temp;
+        if(allProduct().isEmpty()){
+            temp = 1;
+        }else{
+            temp = (findById(allProduct().size()).getId() + 1) ;
+        }
+        product.setId(temp);
         productRepositories.save(product);
     }
     public void deleteProduct(int id){
@@ -53,7 +60,7 @@ public class ProductService {
         Product productWithSeller = findById(product.getId());
         productWithSeller.setSeller(user);
         usersService.update(user.getId(), user);
-        updateProduct(product.getId(), product);
+        updateProduct(productWithSeller.getId(), productWithSeller);
     }
 
 

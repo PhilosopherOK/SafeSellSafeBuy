@@ -38,7 +38,7 @@ public class ProductsController {
         return "product/create";
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/{id}/create")
     public String createProductP(@ModelAttribute("product") @Valid Product product,
                                  @PathVariable("id") int id, BindingResult bindingResult){
         if(bindingResult.hasErrors())
