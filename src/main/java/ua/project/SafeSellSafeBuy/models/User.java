@@ -31,7 +31,7 @@ public class User {
     private List<Product> buyProducts;
 
     @Column(name = "userLogin")
-    private String login;
+    private String username;
 
     @Column(name = "userPassword")
     private String password;
@@ -40,11 +40,11 @@ public class User {
     }
 
     public User(String first_name, String last_name, Date date_of_birthday,
-                String login, String password) {
+                String username, String password) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.date_of_birthday = date_of_birthday;
-        this.login = login;
+        this.username = username;
         this.password = password;
     }
 
@@ -104,12 +104,12 @@ public class User {
         buyProducts.add(product);
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String login) {
+        this.username = login;
     }
 
     public String getPassword() {

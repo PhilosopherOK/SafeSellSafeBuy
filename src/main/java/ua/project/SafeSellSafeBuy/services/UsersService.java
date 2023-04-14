@@ -30,6 +30,7 @@ public class UsersService {
         return usersRepositories.findById(id).orElse(null);
     }
 
+
     public void update(int id, User user) {
         user.setId(id);
         usersRepositories.save(user);

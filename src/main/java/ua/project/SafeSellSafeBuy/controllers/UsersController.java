@@ -2,12 +2,15 @@ package ua.project.SafeSellSafeBuy.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ua.project.SafeSellSafeBuy.models.User;
+import ua.project.SafeSellSafeBuy.security.UserDetails;
 import ua.project.SafeSellSafeBuy.services.ProductService;
 import ua.project.SafeSellSafeBuy.services.UsersService;
 
@@ -24,6 +27,15 @@ public class UsersController {
     public UsersController(UsersService usersService, ProductService productService) {
         this.usersService = usersService;
         this.productService = productService;
+    }
+
+
+    @GetMapping("/showUserInfoFromSecurity")
+    public String showUserInfo(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        System.out.println(userDetails.getUser());
+        return "user/profile";
     }
 
     @GetMapping("/{id}")
