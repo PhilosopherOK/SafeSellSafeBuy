@@ -5,7 +5,8 @@ CREATE TABLE Users(
                       date_of_birthday date CHECK (date_of_birthday > '01.01.1950') NOT NULL,
                       card_number varchar UNIQUE,
                       user_login varchar(24) NOT NULL,
-                      user_password varchar NOT NULL
+                      user_password varchar NOT NULL,
+                      role varchar NOT NULL
 );
 
 CREATE TABLE Product(

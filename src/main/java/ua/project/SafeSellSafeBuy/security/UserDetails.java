@@ -1,9 +1,11 @@
 package ua.project.SafeSellSafeBuy.security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import ua.project.SafeSellSafeBuy.models.User;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
 
@@ -15,7 +17,9 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        // SHOW_ACCOUNT, WITHDRAW_MONEY, SEND_MONEY or
+        // ROLE_ADMIN, ROLE_USER
+        return Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override

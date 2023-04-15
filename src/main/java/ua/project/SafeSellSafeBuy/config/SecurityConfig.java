@@ -25,10 +25,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //configure spring security + config authorization
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()//disable defend from between-sites logins
-                .authorizeRequests()
+        http.authorizeRequests()
+                .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/auth/login", "/auth/create", "/error").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/process_login")

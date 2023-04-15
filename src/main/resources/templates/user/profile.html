@@ -55,7 +55,10 @@
 </form>
 
 <br/>
-<a href="/logout">Logout :(</a>
+
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="Logout"/>
+</form>
 
 </body>
 </html>

@@ -99,4 +99,9 @@ public class UserController {
         }
         return returnValue;
     }
+
+    @GetMapping("/admin")
+    public String adminPage(){
+        return "admin";
+    }
 }

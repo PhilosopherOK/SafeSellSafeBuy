@@ -54,7 +54,7 @@ public class UserService {
         user.setId(temp);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
+        user.setRole("ROLE_USER");
         userRepositories.save(user);
     }
 
