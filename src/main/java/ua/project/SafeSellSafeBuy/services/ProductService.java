@@ -11,12 +11,12 @@ import java.util.List;
 @Service
 public class ProductService {
     private final ProductRepositories productRepositories;
-    private final UsersService usersService;
+    private final UserService usersService;
 
-    public ProductService(ProductRepositories productRepositories, UsersService usersService) {
+    public ProductService(ProductRepositories productRepositories, UserService userService) {
         this.productRepositories = productRepositories;
 
-        this.usersService = usersService;
+        this.usersService = userService;
     }
 
     public List<Product> allProduct(){

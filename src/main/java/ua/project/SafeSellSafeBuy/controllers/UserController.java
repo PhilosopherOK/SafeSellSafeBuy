@@ -1,7 +1,6 @@
 package ua.project.SafeSellSafeBuy.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,20 +11,20 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.project.SafeSellSafeBuy.models.User;
 import ua.project.SafeSellSafeBuy.security.UserDetails;
 import ua.project.SafeSellSafeBuy.services.ProductService;
-import ua.project.SafeSellSafeBuy.services.UsersService;
+import ua.project.SafeSellSafeBuy.services.UserService;
 
 import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
 @RequestMapping("/user")
-public class UsersController {
-    private final UsersService usersService;
+public class UserController {
+    private final UserService userService;
     private final ProductService productService;
 
     @Autowired
-    public UsersController(UsersService usersService, ProductService productService) {
-        this.usersService = usersService;
+    public UserController(UserService userService, ProductService productService) {
+        this.userService = userService;
         this.productService = productService;
     }
 
@@ -35,13 +34,13 @@ public class UsersController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         System.out.println(userDetails.getUser());
-        return "user/profile";
+        return "product/main";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id,
                        Model model) {
-        model.addAttribute("user", usersService.findById(id));
+        model.addAttribute("user", userService.findById(id));
         return "user/profile";
     }
 
@@ -56,7 +55,7 @@ public class UsersController {
         if (bindingResult.hasErrors())
             return "user/create";
 
-        usersService.create(user);
+        userService.create(user);
         return "redirect:/user/"+user.getId();
     }
 
@@ -64,7 +63,7 @@ public class UsersController {
     @GetMapping("/{id}/update")
     public String updateBlanc(@PathVariable("id") int id,
                               Model model) {
-        model.addAttribute("user", usersService.findById(id));
+        model.addAttribute("user", userService.findById(id));
         return "user/update";
     }
 
@@ -74,13 +73,13 @@ public class UsersController {
         if (bindingResult.hasErrors())
             return "user/update";
 
-        usersService.update(id, user);
+        userService.update(id, user);
         return "redirect:/user/"+id;
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") int id) {
-        usersService.delete(id);
+        userService.delete(id);
         return "redirect:/product/main";
     }
 
@@ -90,7 +89,7 @@ public class UsersController {
                               Model model){
         String returnValue = "user/profile";
         try {
-            usersService.saveImage(imageFile);
+            userService.saveImage(imageFile);
             User user = new User();
             model.addAttribute("user", user);
             returnValue = "user/profile";

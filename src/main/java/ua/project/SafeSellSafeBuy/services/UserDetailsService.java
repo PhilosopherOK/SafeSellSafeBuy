@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ua.project.SafeSellSafeBuy.models.User;
-import ua.project.SafeSellSafeBuy.repositories.UsersRepositories;
+import ua.project.SafeSellSafeBuy.repositories.UserRepositories;
 
 import java.util.Optional;
 
@@ -13,17 +13,17 @@ import java.util.Optional;
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
 
-    private final UsersRepositories usersRepositories;
+    private final UserRepositories userRepositories;
 
     @Autowired
-    public UserDetailsService(UsersRepositories usersRepositories) {
-        this.usersRepositories = usersRepositories;
+    public UserDetailsService(UserRepositories userRepositories) {
+        this.userRepositories = userRepositories;
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = usersRepositories.findByUsername(username);
+        Optional<User> user = userRepositories.findByUsername(username);
 
         if(user.isEmpty())
             throw new UsernameNotFoundException("User not found !");

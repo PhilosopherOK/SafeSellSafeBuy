@@ -5,7 +5,7 @@ CREATE TABLE Users(
                       date_of_birthday date CHECK (date_of_birthday > '01.01.1950') NOT NULL,
                       card_number varchar UNIQUE,
                       user_login varchar(24) NOT NULL,
-                      user_password varchar(24) NOT NULL
+                      user_password varchar NOT NULL
 );
 
 CREATE TABLE Product(
@@ -35,3 +35,7 @@ VALUES ('Teddy', 'Merphy', '02.03.1998', '4444111122223331','teddy', 'merphy'),
 
 
 
+
+<label for="cardNumber">Enter cardNumber: </label>
+    <input type="text" th:field="*{cardNumber}" id="cardNumber"/>
+    <div style="color:red" th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}">cardNumber Error</div>

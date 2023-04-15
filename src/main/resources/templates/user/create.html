@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/user}" th:object="${user}">
+<form th:method="POST" th:action="@{/auth/create}" th:object="${user}">
     <label for="first_name">Enter first_name: </label>
     <input type="text" th:field="*{first_name}" id="first_name"/>
     <div style="color:red" th:if="${#fields.hasErrors('first_name')}" th:errors="*{first_name}">first_name Error</div>
@@ -19,10 +19,6 @@
     <input type="text" th:field="*{date_of_birthday}" id="date_of_birthday"/>
     <div style="color:red" th:if="${#fields.hasErrors('date_of_birthday')}" th:errors="*{date_of_birthday}">date_of_birthday Error</div>
     <br/>
-    <label for="cardNumber">Enter cardNumber: </label>
-    <input type="text" th:field="*{cardNumber}" id="cardNumber"/>
-    <div style="color:red" th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}">cardNumber Error</div>
-    <br/>
     <label for="username">Enter username: </label>
     <input type="text" th:field="*{username}" id="username"/>
     <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username Error</div>
@@ -31,7 +27,7 @@
     <input type="text" th:field="*{password}" id="password"/>
     <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</div>
     <br/>
-    <input type="submit" value="Create!"/>
+    <input type="submit" value="Sign UP!"/>
 </form>
 
 

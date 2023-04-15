@@ -1,5 +1,7 @@
 package ua.project.SafeSellSafeBuy.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +20,8 @@ public class User {
     private String last_name;
 
     @Column(name = "date_of_birthday")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date date_of_birthday;
 
     @Column(name = "cardNumber")

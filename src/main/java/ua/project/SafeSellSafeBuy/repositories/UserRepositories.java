@@ -7,6 +7,6 @@ import ua.project.SafeSellSafeBuy.models.User;
 import java.util.Optional;
 
 @Repository
-public interface UsersRepositories extends JpaRepository<User, Integer> {
+public interface UserRepositories extends JpaRepository<User, Integer> {
     Optional<User> findByUsername(String username);
 }
