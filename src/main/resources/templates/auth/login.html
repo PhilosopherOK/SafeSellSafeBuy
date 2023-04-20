@@ -19,6 +19,12 @@
     <div th:if="${param.error}" style="color: red">
         Неправильные имя или пароль
     </div>
+
+</form>
+<br>
+
+<form th:method="GET" th:action="@{/user/create}">
+    <input type="submit" value="Registration"/>
 </form>
 
 </body>

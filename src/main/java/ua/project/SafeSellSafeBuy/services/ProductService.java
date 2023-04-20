@@ -1,6 +1,7 @@
 package ua.project.SafeSellSafeBuy.services;
 
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import ua.project.SafeSellSafeBuy.models.Product;
 import ua.project.SafeSellSafeBuy.models.User;
@@ -41,6 +42,9 @@ public class ProductService {
         product.setId(temp);
         productRepositories.save(product);
     }
+
+
+
     public void deleteProduct(int id){
         if (findById(id).getSeller() != null){
             findById(id).getSeller().getSellProducts().remove(findById(id));
@@ -57,21 +61,23 @@ public class ProductService {
     public void addProductOnSell(int id, Product product) {
         User user = usersService.findById(id);
         user.setSellProducts(product);
+
         Product productWithSeller = findById(product.getId());
         productWithSeller.setSeller(user);
+
         usersService.update(user.getId(), user);
         updateProduct(productWithSeller.getId(), productWithSeller);
     }
 
 
-    public void addProductOnBuy(int id, Product product) {
-        User user = usersService.findById(id);
-        user.setBuyProducts(product);
-        findById(product.getId()).setBuyer(user);
+    public void addProductForBuyer(int userId, int productId) {
+        User user = usersService.findById(userId);
+        Product productWithBuyer = findById(productId);
+
+        user.setBuyProducts(productWithBuyer);
+        productWithBuyer.setBuyer(user);
+
+        usersService.update(user.getId(), user);
+        updateProduct(productWithBuyer.getId(), productWithBuyer);
     }
-
-
-
-
-
 }

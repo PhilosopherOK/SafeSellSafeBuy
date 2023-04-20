@@ -12,6 +12,7 @@ import ua.project.SafeSellSafeBuy.models.User;
 import ua.project.SafeSellSafeBuy.security.UserDetails;
 import ua.project.SafeSellSafeBuy.services.ProductService;
 import ua.project.SafeSellSafeBuy.services.UserService;
+import ua.project.SafeSellSafeBuy.util.UserValidator;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -21,11 +22,13 @@ import java.io.IOException;
 public class UserController {
     private final UserService userService;
     private final ProductService productService;
+    private final UserValidator userValidator;
 
     @Autowired
-    public UserController(UserService userService, ProductService productService) {
+    public UserController(UserService userService, ProductService productService, UserValidator userValidator) {
         this.userService = userService;
         this.productService = productService;
+        this.userValidator = userValidator;
     }
 
 
@@ -37,26 +40,38 @@ public class UserController {
         return "product/main";
     }
 
+    @GetMapping("/profile")
+    public String show(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User userMain = userDetails.getUser();
+
+        model.addAttribute("user", userService.findById(userMain.getId()));
+        return "user/profile";
+    }
+
+
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id,
                        Model model) {
         model.addAttribute("user", userService.findById(id));
-        return "user/profile";
+        return "user/findProfile";
     }
 
     @GetMapping("/create")
-    public String createUser(@ModelAttribute("user") User user) {
+    public String createUserPage(@ModelAttribute("user") User user) {
         return "user/create";
     }
 
-    @PostMapping()
-    public String create(@ModelAttribute("user") @Valid User user,
+    @PostMapping("/create")
+    public String createUser(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult) {
+        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors())
             return "user/create";
 
         userService.create(user);
-        return "redirect:/user/"+user.getId();
+        return "redirect:/auth/login";
     }
 
 

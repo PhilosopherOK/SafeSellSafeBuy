@@ -6,6 +6,9 @@
 </head>
 <body>
 
+<form th:method="GET" th:action="@{/user/profile}">
+    <input type="submit" value="Profile"/>
+</form>
 
 <div th:each="product : ${products}">
     <a th:href="@{/product/{id}(id=${product.getId()})}"><p th:text="${product.getTitle()}"</p></a>

@@ -1,11 +1,15 @@
 package ua.project.SafeSellSafeBuy.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.project.SafeSellSafeBuy.models.Product;
+import ua.project.SafeSellSafeBuy.models.User;
+import ua.project.SafeSellSafeBuy.security.UserDetails;
 import ua.project.SafeSellSafeBuy.services.ProductService;
 
 import javax.validation.Valid;
@@ -47,9 +51,22 @@ public class ProductsController {
         productService.createProduct(product);
         productService.addProductOnSell(id, product);
 
-        return "redirect:/user/"+id;
-      //  return "redirect:/product/main";
+        return "redirect:/user/profile";
     }
+
+
+    @PostMapping("/{id}/buy")
+    public String takeOnBuy(@PathVariable("id") int productId, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User userMain = userDetails.getUser();
+
+        productService.addProductForBuyer(userMain.getId(), productId);
+        return "redirect:/product/"+productId;
+    }
+
+
+
 
     @GetMapping("/{id}/update")
     public String updateProductG(@PathVariable("id") int id, Model model){

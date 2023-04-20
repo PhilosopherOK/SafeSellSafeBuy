@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find profile</title>
+</head>
+<body>
+
+<a th:text="${user.getFirst_name()}">user</a>
+<br/>
+<a th:text="${user.getLast_name()}">user</a>
+<br/>
+<a th:text="${user.getDate_of_birthday()}">user</a>
+
+<br/>
+<hr/>
+<div th:if!="${user.getSellProducts().isEmpty()}">
+    <div th:each="product : ${user.getSellProducts()}">
+        <p>sells:</p>
+        <br/>
+        <a th:href="@{/product/{id}(id=${product.getId()})}"><p th:text="${product.getTitle()}"</p></a>
+        <p th:text="${product.getPrice() + ', ' + product.getShort_description()}">product</p>
+        <hr/>
+    </div>
+</div>
+
+<a href="/product/main">Main Page</a>
+
+</body>
+</html>

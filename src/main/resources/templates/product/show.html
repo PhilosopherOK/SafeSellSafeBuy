@@ -14,43 +14,35 @@
 <br/>
 <a th:text="${product.getLong_description()}">product</a>
 
-
-<br/>
-<hr/>
-<p th:text="${product.getSeller()}">seller</p>
-
 <br/>
 <hr/>
 
-<div th:if="${product.getBuyer() != null}">
-    <p th:text="${product.getBuyer()}">seller</p>
-    <br/>
-    <hr/>
+<p>sells:</p>
+<br/>
+<a th:href="@{/user/{id}(id=${product.getSeller().getId()})}">
+    <p th:text="${product.getSeller().getFirst_name() + ', ' + product.getSeller().getLast_name() }"</p>
+</a>
+
+<br/>
+<hr/>
+
+<div th:if="${product.getBuyer() == null}">
+    <form th:method="POST" th:action="@{/product/{id}/buy(id=${product.getId})}">
+        <input type="submit" value="Buy !"/>
+    </form>
 </div>
 
-<br/>
-<hr/>
-<br/>
-<hr/>
-
-
-    <a th:href="@{/user/{id}(id=${product.getSeller().getId()})}">
-        <p th:text="${product.getSeller().getFirst_name() + ', ' + product.getSeller().getLast_name() }"</p>
-    </a>
-
-
-<br/>
-<hr/>
 
 <div th:if="${product.getBuyer() != null}">
+    <p>buys:</p>
+    <br/>
         <a th:href="@{/user/{id}(id=${product.getBuyer().getId()})}">
             <p th:text="${product.getBuyer().getFirst_name() + ', ' + product.getBuyer().getLast_name() }"</p>
         </a>
-    <br/>
-    <hr/>
 </div>
 
-
+<br/>
+<hr/>
 
 <a href="/product/main">Main Page</a>
 

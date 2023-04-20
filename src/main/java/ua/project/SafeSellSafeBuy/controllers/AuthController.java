@@ -29,21 +29,4 @@ public class AuthController {
         return "auth/login";
     }
 
-    @GetMapping("/create")
-    public String registrationPage(@ModelAttribute ("user")User user){
-        return "user/create";
-    }
-
-    @PostMapping("/create")
-    public String performRegistration(@ModelAttribute("user") @Valid User user,
-                                      BindingResult bindingResult){
-        userValidator.validate(user, bindingResult);
-        if(bindingResult.hasErrors())
-            return "user/create";
-
-        userService.create(user);
-        System.out.println(user);
-        return "redirect:/auth/login";
-    }
-
 }
