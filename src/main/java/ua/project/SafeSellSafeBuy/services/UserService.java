@@ -1,6 +1,8 @@
 package ua.project.SafeSellSafeBuy.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.project.SafeSellSafeBuy.models.User;
 import ua.project.SafeSellSafeBuy.repositories.ProductRepositories;
 import ua.project.SafeSellSafeBuy.repositories.UserRepositories;
+import ua.project.SafeSellSafeBuy.security.UserDetails;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,6 +29,13 @@ public class UserService {
         this.userRepositories = userRepositories;
         this.passwordEncoder = passwordEncoder;
         this.productRepositories = productRepositories;
+    }
+
+    public User findNowUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User userMain = userDetails.getUser();
+        return userMain;
     }
     @Transactional(readOnly = true)
     public User findById(int id) {

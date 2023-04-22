@@ -11,9 +11,11 @@
 </form>
 
 <div th:each="product : ${products}">
+    <div th:if="${product.getBuyer() == null}">
     <a th:href="@{/product/{id}(id=${product.getId()})}"><p th:text="${product.getTitle()}"</p></a>
     <p th:text="${product.getPrice() + ', ' + product.getShort_description()}">product</p>
     <hr/>
+    </div>
 </div>
 
 

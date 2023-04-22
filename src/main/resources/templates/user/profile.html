@@ -13,6 +13,8 @@
 <br/>
 <a th:text="${user.getDate_of_birthday()}">user</a>
 <br/>
+<a th:text="${user.getUser_email()}">user</a>
+<br/>
 
 <div th:if="${user.getCardNumber() != null}">
     <p th:text="${user.getCardNumber()}">cardNumber</p>

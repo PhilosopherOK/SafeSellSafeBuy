@@ -32,14 +32,6 @@ public class UserController {
     }
 
 
-    @GetMapping("/showUserInfoFromSecurity")
-    public String showUserInfo(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        System.out.println(userDetails.getUser());
-        return "product/main";
-    }
-
     @GetMapping("/profile")
     public String show(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

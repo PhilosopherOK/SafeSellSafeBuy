@@ -10,18 +10,24 @@ import org.springframework.web.bind.annotation.*;
 import ua.project.SafeSellSafeBuy.models.Product;
 import ua.project.SafeSellSafeBuy.models.User;
 import ua.project.SafeSellSafeBuy.security.UserDetails;
+import ua.project.SafeSellSafeBuy.services.EmailSenderService;
 import ua.project.SafeSellSafeBuy.services.ProductService;
+import ua.project.SafeSellSafeBuy.services.UserService;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/product")
 public class ProductsController {
+    private final EmailSenderService senderService;
     private final ProductService productService;
+    private final UserService userService;
 
     @Autowired
-    public ProductsController(ProductService productService) {
+    public ProductsController(ProductService productService, EmailSenderService senderService, UserService userService) {
         this.productService = productService;
+        this.senderService = senderService;
+        this.userService = userService;
     }
 
     @GetMapping("/main")
@@ -32,6 +38,8 @@ public class ProductsController {
 
     @GetMapping("/{id}")
     public String showProduct(@PathVariable("id") int id, Model model){
+        User userMain = userService.findNowUser();
+        model.addAttribute("user", userMain);
         model.addAttribute("product", productService.findById(id));
         return "product/show";
     }
@@ -57,15 +65,20 @@ public class ProductsController {
 
     @PostMapping("/{id}/buy")
     public String takeOnBuy(@PathVariable("id") int productId, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User userMain = userDetails.getUser();
+        User userMain = userService.findNowUser();
+
+        Product productOnBuy = productService.findById(productId);
 
         productService.addProductForBuyer(userMain.getId(), productId);
+
+        senderService.sendEmail(userMain.getUser_email(),
+				productOnBuy.getTitle(),
+				"Email in game: " + productOnBuy.getEmail_in_game() +
+                "Login in game: " + productOnBuy.getLogin_in_game() +
+                "Password in game: " + productOnBuy.getPassword_in_game());
+
         return "redirect:/product/"+productId;
     }
-
-
 
 
     @GetMapping("/{id}/update")

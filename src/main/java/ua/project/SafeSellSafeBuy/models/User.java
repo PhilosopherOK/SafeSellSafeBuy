@@ -3,6 +3,7 @@ package ua.project.SafeSellSafeBuy.models;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,10 @@ public class User {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date date_of_birthday;
+
+    @Email(message = "Must be right email")
+    @Column(name = "user_email")
+    private String user_email;
 
     @Column(name = "cardNumber")
     private String cardNumber;
@@ -46,10 +51,11 @@ public class User {
     }
 
     public User(String first_name, String last_name, Date date_of_birthday,
-                String username, String password) {
+                String user_email, String username, String password) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.date_of_birthday = date_of_birthday;
+        this.user_email = user_email;
         this.username = username;
         this.password = password;
     }
@@ -84,6 +90,14 @@ public class User {
 
     public void setDate_of_birthday(Date date_of_birthday) {
         this.date_of_birthday = date_of_birthday;
+    }
+
+    public String getUser_email() {
+        return user_email;
+    }
+
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
     }
 
     public String getCardNumber() {
@@ -136,6 +150,6 @@ public class User {
 
     @Override
     public String toString() {
-        return first_name  + " " + last_name ;
+        return first_name + " " + last_name;
     }
 }

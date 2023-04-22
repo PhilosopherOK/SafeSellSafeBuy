@@ -3,6 +3,7 @@ CREATE TABLE Users(
                       first_name varchar NOT NULL,
                       last_name varchar NOT NULL,
                       date_of_birthday date CHECK (date_of_birthday > '01.01.1950') NOT NULL,
+                      user_email varchar NOT NULL UNIQUE,
                       card_number varchar UNIQUE,
                       user_login varchar NOT NULL,
                       user_password varchar NOT NULL,
