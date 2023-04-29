@@ -1,31 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <title>SSSB</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="./main.css" />
 </head>
+
+<body class="body__image">
+    <div class="body__block">
+        <form name="f" method="post" action="/process_login" class="login">
+            <label for="username">Введите имя пользователя: </label>
+            <input type="text" name="username" id="username" />
+            <br />
+            <label for="password">Введите пароль: </label>
+            <input type="password" name="password" id="password" />
+            <br />
+            <input class="input__login" type="submit" value="Login" />
+
+            <div th:if="${param.error}" style="color: rgb(209, 6, 6)">
+                Неправильные имя или пароль
+            </div>
+            <form th:method="GET" th:action="@{/user/create}">
+                <input class="register__batton" type="submit" value="Registration" />
+            </form>
+        </form>
+    </div>
+</body>
+
+</html>
+
 <body>
 
-<form name="f" method="post" action="/process_login">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-    <label for="username">Введите имя пользователя: </label>
-    <input type="text" name="username" id="username"/>
-    <br/>
-    <label for="password">Введите пароль: </label>
-    <input type="password" name="password" id="password"/>
-    <br/>
-    <input type="submit" value="Login"/>
-
-    <div th:if="${param.error}" style="color: red">
-        Неправильные имя или пароль
-    </div>
-
-</form>
-<br>
-
-<form th:method="GET" th:action="@{/user/create}">
-    <input type="submit" value="Registration"/>
-</form>
-
 </body>
+
 </html>
