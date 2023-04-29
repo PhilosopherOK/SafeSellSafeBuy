@@ -24,7 +24,9 @@ public class ProductsController {
     private final UserService userService;
 
     @Autowired
-    public ProductsController(ProductService productService, EmailSenderService senderService, UserService userService) {
+    public ProductsController(ProductService productService,
+                              EmailSenderService senderService,
+                              UserService userService) {
         this.productService = productService;
         this.senderService = senderService;
         this.userService = userService;
@@ -73,8 +75,8 @@ public class ProductsController {
 
         senderService.sendEmail(userMain.getUser_email(),
 				productOnBuy.getTitle(),
-				"Email in game: " + productOnBuy.getEmail_in_game() +
-                "Login in game: " + productOnBuy.getLogin_in_game() +
+				"Email in game: " + productOnBuy.getEmail_in_game() + "\n" +
+                "Login in game: " + productOnBuy.getLogin_in_game() + "\n" +
                 "Password in game: " + productOnBuy.getPassword_in_game());
 
         return "redirect:/product/"+productId;

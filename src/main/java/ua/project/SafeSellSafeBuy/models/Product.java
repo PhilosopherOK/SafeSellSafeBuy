@@ -11,6 +11,7 @@ public class Product {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Size(min = 8, max = 30, message = "title should be between 8 and 30")
     @NotNull(message = "title should be not empty!")
