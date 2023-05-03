@@ -4,7 +4,7 @@
 
 body {
   background-color: rgb(98, 98, 101);
-  background-image: url(./img/2.jpg);
+  background-image: url(2.jpg);
   background-size: 100vw;
   background-repeat: no-repeat;
 }
@@ -17,7 +17,7 @@ form {
 }
 
 .body__block {
-  background-image: url(./img/2.jpg);
+  background-image: url(2.jpg);
   border-radius: 500px;
   background-color: rgb(34, 36, 36);
   width: 420px;

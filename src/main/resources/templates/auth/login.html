@@ -12,34 +12,105 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="./main.css" />
+    <link rel="stylesheet" href="./main.css"/>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: rgb(98, 98, 101);
+            background-image: url(./2.jpg);
+            background-size: 100vw;
+            background-repeat: no-repeat;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 45px;
+        }
+
+        .body__block {
+            background-image: url(./2.jpg);
+            border-radius: 500px;
+            background-color: rgb(34, 36, 36);
+            width: 420px;
+            height: 420px;
+            /* margin-right: auto; */
+        }
+
+        label {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 25px;
+            color: rgb(255, 255, 255);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input[type='text'],
+        input[type='password'] {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            /* margin-bottom: 20px; */
+            box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.1);
+            width: 300px;
+            font-size: 16px;
+        }
+
+        .input__login {
+            background-color: rgba(131, 54, 53, 0.9);
+            color: white;
+            padding: 13px 68px;
+            border: none;
+            border-radius: 60% 0 60% 0;
+            cursor: pointer;
+            font-size: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type='submit']:hover {
+            background-color: rgba(245, 10, 6, 0.5);
+        }
+
+        .register__batton {
+            background-color: rgba(131, 54, 53, 0.9);
+            color: white;
+            padding: 10px 60px;
+            border: none;
+            border-radius: 60% 0 60% 0;
+            cursor: pointer;
+            font-size: 30px;
+            transition: background-color 0.3s ease;
+        }
+        .puddingFix {
+            padding-top: 0px;
+        }
+    </style>
 </head>
 
 <body class="body__image">
     <div class="body__block">
-        <form name="f" method="post" action="/process_login" class="login">
+        <form name="f" method="post" action="/process_login">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <label for="username">Введите имя пользователя: </label>
             <input type="text" name="username" id="username" />
-            <br />
+            <br/>
             <label for="password">Введите пароль: </label>
             <input type="password" name="password" id="password" />
-            <br />
+            <br/>
             <input class="input__login" type="submit" value="Login" />
 
             <div th:if="${param.error}" style="color: rgb(209, 6, 6)">
                 Неправильные имя или пароль
             </div>
-            <form th:method="GET" th:action="@{/user/create}">
-                <input class="register__batton" type="submit" value="Registration" />
-            </form>
+        </form>
+        <form class="puddingFix" th:method="GET" th:action="@{/user/create}">
+            <input class="register__batton" type="submit" value="Registration" />
         </form>
     </div>
-</body>
-
-</html>
-
-<body>
-
 </body>
 
 </html>
