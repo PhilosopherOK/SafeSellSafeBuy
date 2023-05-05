@@ -4,6 +4,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -16,9 +18,13 @@ public class User {
     private int id;
 
     @Column(name = "first_name")
+    @Size(min = 3, max = 30, message = "first_name should be between 3 and 30")
+    @NotNull(message = "first_name should be not empty!")
     private String first_name;
 
     @Column(name = "last_name")
+    @Size(min = 3, max = 30, message = "last_name should be between 3 and 30")
+    @NotNull(message = "last_name should be not empty!")
     private String last_name;
 
     @Column(name = "date_of_birthday")
@@ -27,6 +33,7 @@ public class User {
     private Date date_of_birthday;
 
     @Email(message = "Must be right email")
+    @NotNull(message = "user_email should be not empty!")
     @Column(name = "user_email")
     private String user_email;
 
@@ -40,9 +47,13 @@ public class User {
     private List<Product> buyProducts;
 
     @Column(name = "userLogin")
+    @Size(min = 3, max = 30, message = "login should be between 3 and 30")
+    @NotNull(message = "login should be not empty!")
     private String username;
 
     @Column(name = "userPassword")
+    @Size(min = 3, max = 30, message = "password should be between 3 and 30")
+    @NotNull(message = "password should be not empty!")
     private String password;
 
     @Column(name = "role")

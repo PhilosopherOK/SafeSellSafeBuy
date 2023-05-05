@@ -13,7 +13,7 @@ public class Product {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Size(min = 8, max = 30, message = "title should be between 8 and 30")
+    @Size(min = 3, max = 30, message = "title should be between 3 and 30")
     @NotNull(message = "title should be not empty!")
     @Column(name = "title")
     private String title;
@@ -21,12 +21,12 @@ public class Product {
     @Column(name = "price")
     private int price;
 
-    @Size(min = 8, max = 100, message = "shortDescription should be between 8 and 100")
+    @Size(min = 3, max = 100, message = "shortDescription should be between 3 and 100")
     @NotNull(message = "shortDescription should be not empty!")
     @Column(name = "short_description")
     private String short_description;
 
-    @Size(min = 8, max = 500, message = "long_description should be between 8 and 500")
+    @Size(min = 3, max = 500, message = "long_description should be between 3 and 500")
     @NotNull(message = "long_description should be not empty!")
     @Column(name = "long_description")
     private String long_description;
@@ -34,22 +34,22 @@ public class Product {
     @Column(name = "login_in_game")
     private String login_in_game;
 
-    @Size(min = 8, max = 30, message = "passwordInGame should be between 8 and 30")
+    @Size(min = 3, max = 30, message = "passwordInGame should be between 3 and 30")
     @NotNull(message = "passwordInGame should be not empty!")
     @Column(name = "password_in_game")
     private String password_in_game;
     @Email
-    @Size(min = 8, max = 30, message = "emailInGame should be between 8 and 30")
+    @Size(min = 3, max = 30, message = "emailInGame should be between 3 and 30")
     @NotNull(message = "emailInGame should be not empty!")
     @Column(name = "email_in_game")
     private String email_in_game;
 
-    @Size(min = 8, max = 30, message = "secretQuestion should be between 8 and 30")
+    @Size(min = 3, max = 30, message = "secretQuestion should be between 3 and 30")
     @NotNull(message = "secretQuestion should be not empty!")
     @Column(name = "secret_question")
     private String secret_question;
 
-    @Size(min = 8, max = 30, message = "secretAnswer should be between 8 and 30")
+    @Size(min = 3, max = 30, message = "secretAnswer should be between 3 and 30")
     @NotNull(message = "secretAnswer should be not empty!")
     @Column(name = "secret_answer")
     private String secret_answer;

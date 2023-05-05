@@ -19,16 +19,13 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/product")
 public class ProductsController {
-    private final EmailSenderService senderService;
     private final ProductService productService;
     private final UserService userService;
 
     @Autowired
     public ProductsController(ProductService productService,
-                              EmailSenderService senderService,
                               UserService userService) {
         this.productService = productService;
-        this.senderService = senderService;
         this.userService = userService;
     }
 
@@ -72,12 +69,6 @@ public class ProductsController {
         Product productOnBuy = productService.findById(productId);
 
         productService.addProductForBuyer(userMain.getId(), productId);
-
-        senderService.sendEmail(userMain.getUser_email(),
-				productOnBuy.getTitle(),
-				"Email in game: " + productOnBuy.getEmail_in_game() + "\n" +
-                "Login in game: " + productOnBuy.getLogin_in_game() + "\n" +
-                "Password in game: " + productOnBuy.getPassword_in_game());
 
         return "redirect:/product/"+productId;
     }

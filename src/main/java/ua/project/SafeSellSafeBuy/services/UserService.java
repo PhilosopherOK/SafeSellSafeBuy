@@ -23,20 +23,23 @@ public class UserService {
     private final UserRepositories userRepositories;
     private final PasswordEncoder passwordEncoder;
     private final ProductRepositories productRepositories;
+    private final EmailSenderService senderService;
 
     @Autowired
-    public UserService(UserRepositories userRepositories, PasswordEncoder passwordEncoder, ProductRepositories productRepositories) {
+    public UserService(UserRepositories userRepositories, PasswordEncoder passwordEncoder, ProductRepositories productRepositories, EmailSenderService senderService) {
         this.userRepositories = userRepositories;
         this.passwordEncoder = passwordEncoder;
         this.productRepositories = productRepositories;
+        this.senderService = senderService;
     }
 
-    public User findNowUser(){
+    public User findNowUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User userMain = userDetails.getUser();
         return userMain;
     }
+
     @Transactional(readOnly = true)
     public User findById(int id) {
         return userRepositories.findById(id).orElse(null);
@@ -44,7 +47,7 @@ public class UserService {
 
 
     @Transactional(readOnly = true)
-    public User findByUsername(String username){
+    public User findByUsername(String username) {
         return userRepositories.findByUsername(username).orElse(null);
     }
 
@@ -56,20 +59,27 @@ public class UserService {
 
     public void create(User user) {
         int temp;
-        if(userRepositories.findAll().isEmpty()){
+        if (userRepositories.findAll().isEmpty()) {
             temp = 1;
-        }else{
-            temp = (findById(userRepositories.findAll().size()).getId() + 1) ;
+        } else {
+            temp = (findById(userRepositories.findAll().size()).getId() + 1);
         }
         user.setId(temp);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
         userRepositories.save(user);
+
+        senderService.sendEmail(user.getUser_email(),
+                "Dear " + user.getFirst_name(),
+                "Your email: " + user.getUser_email() + "\n" +
+                        "Login: " + user.getUsername() + "\n" +
+                        "Password: " + user.getPassword());
+
     }
 
 
-    public void delete(int id){
+    public void delete(int id) {
         userRepositories.deleteById(id);
     }
 
@@ -80,7 +90,4 @@ public class UserService {
         Path path = Paths.get(folder + imageFile.getOriginalFilename());
         Files.write(path, bytes);
     }
-
-
-
 }

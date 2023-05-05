@@ -1,7 +1,6 @@
 package ua.project.SafeSellSafeBuy.services;
 
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import ua.project.SafeSellSafeBuy.models.Product;
 import ua.project.SafeSellSafeBuy.models.User;
@@ -13,11 +12,13 @@ import java.util.List;
 public class ProductService {
     private final ProductRepositories productRepositories;
     private final UserService usersService;
+    private final EmailSenderService senderService;
 
-    public ProductService(ProductRepositories productRepositories, UserService userService) {
+    public ProductService(ProductRepositories productRepositories, UserService userService, EmailSenderService senderService) {
         this.productRepositories = productRepositories;
 
         this.usersService = userService;
+        this.senderService = senderService;
     }
 
     public List<Product> allProduct(){
@@ -79,5 +80,13 @@ public class ProductService {
 
         usersService.update(user.getId(), user);
         updateProduct(productWithBuyer.getId(), productWithBuyer);
+
+        senderService.sendEmail(user.getUser_email(),
+                productWithBuyer.getTitle(),
+                "Email in game: " + productWithBuyer.getEmail_in_game() + "\n" +
+                        "Login in game: " + productWithBuyer.getLogin_in_game() + "\n" +
+                        "Password in game: " + productWithBuyer.getPassword_in_game()+ "\n" +
+                        "Secret question:" + productWithBuyer.getSecret_question()+ "\n" +
+                        "Secret answer:" + productWithBuyer.getSecret_answer());
     }
 }
