@@ -24,6 +24,19 @@ CREATE TABLE Product(
                         seller int REFERENCES Users(id) ON DELETE CASCADE,
                         buyer int REFERENCES Users(id) ON DELETE SET NULL
 );
+CREATE TABLE product_for_check(
+                        id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+                        title varchar NOT NULL,
+                        price int NOT NULL CHECK ( price > 0),
+                        short_description varchar NOT NULL,
+                        long_description varchar NOT NULL,
+                        login_in_game varchar NOT NULL,
+                        password_in_game varchar NOT NULL,
+                        email_in_game varchar NOT NULL,
+                        secret_question varchar NOT NULL,
+                        secret_answer varchar NOT NULL,
+                        seller int REFERENCES Users(id) ON DELETE CASCADE
+);
 
 drop table product;
 drop table users;

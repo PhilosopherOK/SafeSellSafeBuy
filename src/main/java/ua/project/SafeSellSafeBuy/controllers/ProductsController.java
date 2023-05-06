@@ -1,16 +1,14 @@
 package ua.project.SafeSellSafeBuy.controllers;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.project.SafeSellSafeBuy.models.Product;
+import ua.project.SafeSellSafeBuy.models.ProductForCheck;
 import ua.project.SafeSellSafeBuy.models.User;
-import ua.project.SafeSellSafeBuy.security.UserDetails;
-import ua.project.SafeSellSafeBuy.services.EmailSenderService;
 import ua.project.SafeSellSafeBuy.services.ProductService;
 import ua.project.SafeSellSafeBuy.services.UserService;
 
@@ -21,12 +19,14 @@ import javax.validation.Valid;
 public class ProductsController {
     private final ProductService productService;
     private final UserService userService;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public ProductsController(ProductService productService,
-                              UserService userService) {
+                              UserService userService, ModelMapper modelMapper) {
         this.productService = productService;
         this.userService = userService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/main")
@@ -97,7 +97,9 @@ public class ProductsController {
         return "redirect:/product/main";
     }
 
-
+    private ProductForCheck convertProductToProductForCheck(Product product) {
+        return modelMapper.map(product, ProductForCheck.class);
+    }
 
 
 
