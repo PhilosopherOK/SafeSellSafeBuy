@@ -52,7 +52,6 @@ public class User {
     private String username;
 
     @Column(name = "userPassword")
-    @Size(min = 3, max = 30, message = "password should be between 3 and 30")
     @NotNull(message = "password should be not empty!")
     private String password;
 
