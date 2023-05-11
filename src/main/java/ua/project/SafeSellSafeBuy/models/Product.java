@@ -11,7 +11,6 @@ public class Product {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Size(min = 3, max = 30, message = "title should be between 3 and 30")
     @NotNull(message = "title should be not empty!")
@@ -174,5 +173,23 @@ public class Product {
 
     public void setBuyer(User buyer) {
         this.buyer = buyer;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", short_description='" + short_description + '\'' +
+                ", long_description='" + long_description + '\'' +
+                ", login_in_game='" + login_in_game + '\'' +
+                ", password_in_game='" + password_in_game + '\'' +
+                ", email_in_game='" + email_in_game + '\'' +
+                ", secret_question='" + secret_question + '\'' +
+                ", secret_answer='" + secret_answer + '\'' +
+                ", seller=" + seller +
+                ", buyer=" + buyer +
+                '}';
     }
 }

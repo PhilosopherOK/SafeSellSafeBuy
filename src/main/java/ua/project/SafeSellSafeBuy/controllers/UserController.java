@@ -1,5 +1,6 @@
 package ua.project.SafeSellSafeBuy.controllers;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,8 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ua.project.SafeSellSafeBuy.models.Product;
+import ua.project.SafeSellSafeBuy.models.ProductForCheck;
 import ua.project.SafeSellSafeBuy.models.User;
 import ua.project.SafeSellSafeBuy.security.UserDetails;
+import ua.project.SafeSellSafeBuy.services.ProductForCheckService;
 import ua.project.SafeSellSafeBuy.services.ProductService;
 import ua.project.SafeSellSafeBuy.services.UserService;
 import ua.project.SafeSellSafeBuy.util.UserValidator;
@@ -23,12 +27,16 @@ public class UserController {
     private final UserService userService;
     private final ProductService productService;
     private final UserValidator userValidator;
+    private final ProductForCheckService productForCheckService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public UserController(UserService userService, ProductService productService, UserValidator userValidator) {
+    public UserController(UserService userService, ProductService productService, UserValidator userValidator, ProductForCheckService productForCheckService, ModelMapper modelMapper) {
         this.userService = userService;
         this.productService = productService;
         this.userValidator = userValidator;
+        this.productForCheckService = productForCheckService;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -107,8 +115,5 @@ public class UserController {
         return returnValue;
     }
 
-    @GetMapping("/admin")
-    public String adminPage(){
-        return "admin";
-    }
+
 }

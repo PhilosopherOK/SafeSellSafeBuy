@@ -161,4 +161,21 @@ public class ProductForCheck {
     public void setSeller(User seller) {
         this.seller = seller;
     }
+
+    @Override
+    public String toString() {
+        return "ProductForCheck{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", short_description='" + short_description + '\'' +
+                ", long_description='" + long_description + '\'' +
+                ", login_in_game='" + login_in_game + '\'' +
+                ", password_in_game='" + password_in_game + '\'' +
+                ", email_in_game='" + email_in_game + '\'' +
+                ", secret_question='" + secret_question + '\'' +
+                ", secret_answer='" + secret_answer + '\'' +
+                ", seller=" + seller +
+                '}';
+    }
 }

@@ -11,7 +11,7 @@ CREATE TABLE Users(
 );
 
 CREATE TABLE Product(
-                        id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+                        id int PRIMARY KEY,
                         title varchar NOT NULL,
                         price int NOT NULL CHECK ( price > 0),
                         short_description varchar NOT NULL,

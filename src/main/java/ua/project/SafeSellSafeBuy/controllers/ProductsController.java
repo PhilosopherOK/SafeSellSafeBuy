@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.project.SafeSellSafeBuy.models.Product;
 import ua.project.SafeSellSafeBuy.models.ProductForCheck;
 import ua.project.SafeSellSafeBuy.models.User;
+import ua.project.SafeSellSafeBuy.services.ProductForCheckService;
 import ua.project.SafeSellSafeBuy.services.ProductService;
 import ua.project.SafeSellSafeBuy.services.UserService;
 
@@ -18,13 +19,15 @@ import javax.validation.Valid;
 @RequestMapping("/product")
 public class ProductsController {
     private final ProductService productService;
+    private final ProductForCheckService productForCheckService;
     private final UserService userService;
     private final ModelMapper modelMapper;
 
     @Autowired
     public ProductsController(ProductService productService,
-                              UserService userService, ModelMapper modelMapper) {
+                              ProductForCheckService productForCheckService, UserService userService, ModelMapper modelMapper) {
         this.productService = productService;
+        this.productForCheckService = productForCheckService;
         this.userService = userService;
         this.modelMapper = modelMapper;
     }
@@ -55,8 +58,8 @@ public class ProductsController {
         if(bindingResult.hasErrors())
             return "product/create";
 
-        productService.createProduct(product);
-        productService.addProductOnSell(id, product);
+        ProductForCheck productForCheck = convertProductToProductForCheck(product);
+        productForCheckService.create(id, productForCheck);
 
         return "redirect:/user/profile";
     }

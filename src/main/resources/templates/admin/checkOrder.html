@@ -6,5 +6,30 @@
 </head>
 <body>
 
+<form th:method="GET" th:action="@{/user/profile}">
+    <input type="submit" value="Profile"/>
+</form>
+
+
+<div th:each="product : ${listProductForCheck}">
+    <p th:text="${product.getTitle()}">product</p>
+    <p th:text="${product.getPrice()}">product</p>
+    <p th:text="${product.getShort_description()}">product</p>
+    <p th:text="${product.getLong_description()}">product</p>
+    <p th:text="${product.getLogin_in_game()}">product</p>
+    <p th:text="${product.getPassword_in_game()}">product</p>
+    <p th:text="${product.getEmail_in_game()}">product</p>
+    <p th:text="${product.getSecret_question()}">product</p>
+    <p th:text="${product.getSecret_answer()}">product</p>
+    <hr/>
+    <form th:method="POST" th:action="@{/admin/checkOrder/good/{id}(id=${product.getId()})}">
+        <input type="submit" value="Good"/>
+    </form>
+    <hr/>
+    <form th:method="POST" th:action="@{/admin/checkOrder/bad/{id}(id=${product.getId()})}">
+        <input type="submit" value="Bad"/>
+    </form>
+</div>
+
 </body>
 </html>
