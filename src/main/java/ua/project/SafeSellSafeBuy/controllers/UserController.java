@@ -2,6 +2,7 @@ package ua.project.SafeSellSafeBuy.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,9 @@ import ua.project.SafeSellSafeBuy.services.UserService;
 import ua.project.SafeSellSafeBuy.util.UserValidator;
 
 import javax.validation.Valid;
+import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
@@ -99,21 +102,44 @@ public class UserController {
     }
 
 
-    @PostMapping("/uploadImage")
-    public String uploadImage(@RequestParam("imageFile")MultipartFile imageFile,
-                              Model model){
-        String returnValue = "user/profile";
-        try {
-            userService.saveImage(imageFile);
-            User user = new User();
-            model.addAttribute("user", user);
-            returnValue = "user/profile";
-        } catch (IOException e) {
-            e.printStackTrace();
-            returnValue = "error";
+
+    @Value("${upload.path}")
+    private String uploadPath;
+
+    @PostMapping("/upload")
+    public String add(@RequestParam("file") MultipartFile file) throws IOException {
+
+        if(file != null){
+            File uploadDir = new File(uploadPath);
+            if(!uploadDir.exists()){
+                uploadDir.mkdir();
+            }
+
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
         }
-        return returnValue;
+        return "user/profile";
     }
+
+
+
+//    @PostMapping("/uploadImage")
+//    public String uploadImage(@RequestParam("imageFile")MultipartFile imageFile,
+//                              Model model){
+//        String returnValue = "user/profile";
+//        try {
+//            userService.saveImage(imageFile);
+//            User user = new User();
+//            model.addAttribute("user", user);
+//            returnValue = "user/profile";
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            returnValue = "error";
+//        }
+//        return returnValue;
+//    }
 
 
 }
