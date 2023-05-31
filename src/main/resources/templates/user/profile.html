@@ -52,11 +52,6 @@
     </div>
 </div>
 
-<form method="POST" enctype="multipart/form-data" action="/uploadImage">
-    <input type="file" name="imageFile"/>
-    <input type="submit" value="Upload"/>
-</form>
-
 <br/>
 
 <a href="/product/main">Main Page</a>
@@ -74,7 +69,13 @@
 <form method="post" th:action="@{/user/upload}" enctype="multipart/form-data">
     <input type="file" name="file">
     <button type="submit"> Add</button>
+    <h2 th:text="${message}"></h2>
 </form>
+
+<div>
+<!--    <th:if -->
+    <img src="/upload/${user.getId()}.png">
+</div>
 
 </body>
 </html>

@@ -3,26 +3,22 @@ package ua.project.SafeSellSafeBuy.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ua.project.SafeSellSafeBuy.models.Product;
-import ua.project.SafeSellSafeBuy.models.ProductForCheck;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.project.SafeSellSafeBuy.models.User;
-import ua.project.SafeSellSafeBuy.security.UserDetails;
 import ua.project.SafeSellSafeBuy.services.ProductForCheckService;
 import ua.project.SafeSellSafeBuy.services.ProductService;
 import ua.project.SafeSellSafeBuy.services.UserService;
 import ua.project.SafeSellSafeBuy.util.UserValidator;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
@@ -33,8 +29,11 @@ public class UserController {
     private final ProductForCheckService productForCheckService;
     private final ModelMapper modelMapper;
 
+
     @Autowired
-    public UserController(UserService userService, ProductService productService, UserValidator userValidator, ProductForCheckService productForCheckService, ModelMapper modelMapper) {
+    public UserController(UserService userService, ProductService productService,
+                          UserValidator userValidator, ProductForCheckService productForCheckService,
+                          ModelMapper modelMapper) {
         this.userService = userService;
         this.productService = productService;
         this.userValidator = userValidator;
@@ -45,11 +44,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public String show(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User userMain = userDetails.getUser();
-
-        model.addAttribute("user", userService.findById(userMain.getId()));
+        model.addAttribute("user", userService.findById(userService.findNowUser().getId()));
         return "user/profile";
     }
 
@@ -102,25 +97,43 @@ public class UserController {
     }
 
 
-
     @Value("${upload.path}")
     private String uploadPath;
 
+
+
+    //https://mkyong.com/spring-mvc/spring-mvc-file-upload-example/
+    //https://mkyong.com/spring-boot/spring-boot-configure-maxswallowsize-in-embedded-tomcat/
+    //https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix.application-properties
+
     @PostMapping("/upload")
-    public String add(@RequestParam("file") MultipartFile file) throws IOException {
+    public String add(@RequestParam("file") MultipartFile file,
+                      RedirectAttributes redirectAttributes) {
 
-        if(file != null){
-            File uploadDir = new File(uploadPath);
-            if(!uploadDir.exists()){
-                uploadDir.mkdir();
-            }
-
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
-
-            file.transferTo(new File(uploadPath + "/" + resultFilename));
+        if (file.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
+            return "redirect:/user/profile";
         }
-        return "user/profile";
+        if(!file.getContentType().equals("image/png") && !file.getContentType().equals("image/jpeg")){
+            redirectAttributes.addFlashAttribute("message", "Please select file with png or jpg format");
+            return "redirect:/user/profile";
+        }
+
+        try {
+            if (file != null) {
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+                file.transferTo(new File(uploadPath + "/" + userService.findNowUser().getId() + ".png"));
+                redirectAttributes.addFlashAttribute("message",
+                        "You successfully uploaded '" + file.getOriginalFilename() + "'");
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/user/profile";
     }
 
 
