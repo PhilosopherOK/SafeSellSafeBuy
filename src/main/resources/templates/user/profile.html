@@ -48,7 +48,8 @@
     <br/>
     <div th:each="product : ${user.getBuyProducts()}">
         <a th:href="@{/product/{id}(id=${product.getId()})}"><p th:text="${product.getTitle()}"</p></a>
-        <p th:text="${product.getPrice() + ', ' + product.getShort_description()}">product</p><hr/>
+        <p th:text="${product.getPrice() + ', ' + product.getShort_description()}">product</p>
+        <hr/>
     </div>
 </div>
 
@@ -65,7 +66,6 @@
 </form>
 
 
-
 <form method="post" th:action="@{/user/upload}" enctype="multipart/form-data">
     <input type="file" name="file">
     <button type="submit"> Add</button>
@@ -73,9 +73,9 @@
 </form>
 
 <div>
-<!--    <th:if -->
-    <img src="/upload/${user.getId()}.png">
+    <img th:src="@{/images/{id}.png(id=${user.getId()})}">
 </div>
+
 
 </body>
 </html>

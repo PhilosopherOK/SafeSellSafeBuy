@@ -135,24 +135,4 @@ public class UserController {
 
         return "redirect:/user/profile";
     }
-
-
-
-//    @PostMapping("/uploadImage")
-//    public String uploadImage(@RequestParam("imageFile")MultipartFile imageFile,
-//                              Model model){
-//        String returnValue = "user/profile";
-//        try {
-//            userService.saveImage(imageFile);
-//            User user = new User();
-//            model.addAttribute("user", user);
-//            returnValue = "user/profile";
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            returnValue = "error";
-//        }
-//        return returnValue;
-//    }
-
-
 }
