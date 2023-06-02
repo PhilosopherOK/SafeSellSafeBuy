@@ -15,7 +15,6 @@ import ua.project.SafeSellSafeBuy.services.ProductService;
 import ua.project.SafeSellSafeBuy.services.UserService;
 import ua.project.SafeSellSafeBuy.util.UserValidator;
 
-import javax.servlet.annotation.MultipartConfig;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -97,7 +96,7 @@ public class UserController {
     }
 
 
-    @Value("${upload.path}")
+    @Value("${upload.user.path}")
     private String uploadPath;
 
 

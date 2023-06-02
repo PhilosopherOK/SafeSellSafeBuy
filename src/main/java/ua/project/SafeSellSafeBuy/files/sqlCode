@@ -40,6 +40,7 @@ CREATE TABLE product_for_check(
 
 drop table product;
 drop table users;
+drop table product_for_check;
 
 
 INSERT INTO users(first_name, last_name, date_of_birthday, card_number, user_login, user_password)

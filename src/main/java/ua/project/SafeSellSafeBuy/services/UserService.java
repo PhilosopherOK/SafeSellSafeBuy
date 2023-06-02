@@ -7,23 +7,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.project.SafeSellSafeBuy.models.User;
 import ua.project.SafeSellSafeBuy.repositories.ProductRepositories;
 import ua.project.SafeSellSafeBuy.repositories.UserRepositories;
 import ua.project.SafeSellSafeBuy.security.UserDetails;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Scanner;
+import java.util.Random;
 
 
 @Service
@@ -33,7 +28,7 @@ public class UserService {
     private final ProductRepositories productRepositories;
     private final EmailSenderService senderService;
 
-    @Value("${upload.path}")
+    @Value("${upload.user.path}")
     private String uploadPath;
 
     @Autowired
@@ -77,30 +72,32 @@ public class UserService {
         }
         user.setId(temp);
 
-        senderService.sendEmail(user.getUser_email(),
-                "Dear " + user.getFirst_name(),
-                "Your email: " + user.getUser_email() + "\n" +
-                        "Login: " + user.getUsername() + "\n" +
-                        "Password: " + user.getPassword());
+//        senderService.sendEmail(user.getUser_email(),
+//                "Dear " + user.getFirst_name(),
+//                "Your email: " + user.getUser_email() + "\n" +
+//                        "Login: " + user.getUsername() + "\n" +
+//                        "Password: " + user.getPassword());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
         userRepositories.save(user);
 
-        String sourceDirName = uploadPath + "/standardAva.png";
-        String targetSourceDir = uploadPath + "/" + user.getId() + ".png";
-        try {
-            copyDir(sourceDirName, targetSourceDir);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        standardAvatar(user);
     }
 
-    private static void copyDir(String sourceDirName, String targetSourceDir) throws IOException {
-        File file = new File(sourceDirName);
-        Path destDir = Paths.get(targetSourceDir);
-        File file1 = new File(String.valueOf(Files.copy(file.toPath(), destDir.resolve(file.getName()), StandardCopyOption.REPLACE_EXISTING)));
-        Files.copy(file.toPath(), destDir.resolve(file.getName()), StandardCopyOption.REPLACE_EXISTING);
+    private void standardAvatar(User user) {
+        Random random = new Random();
+        Path source = Paths.get(
+                "C:/Users/support/Desktop/SafeSellSafeBuy/src/main/resources/static/imagesByUsers/standardAva"
+                        + (1 + random.nextInt(7)) + ".png");
+        try {
+            // rename a file in the same directory
+            Files.copy(source, source.resolveSibling(user.getId() + ".png"),
+                    StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

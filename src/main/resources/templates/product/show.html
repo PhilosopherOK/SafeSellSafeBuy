@@ -44,6 +44,31 @@
 <br/>
 <hr/>
 
+
+<!--<form method="POST" action="${pageContext.request.contextPath}/uploadMulti" enctype="multipart/form-data">-->
+<!--    <input type="file" name="files" /><br/>-->
+<!--    <input type="file" name="files" /><br/>-->
+<!--    <input type="file" name="files" /><br/>-->
+<!--    <input type="submit" value="Submit" />-->
+<!--</form>-->
+
+<form method="POST" th:action="@{/product/uploadMulti}" enctype="multipart/form-data">
+    <input type="file" name="files" /><br/>
+    <input type="file" name="files" /><br/>
+    <input type="file" name="files" /><br/>
+    <button type="submit"> Add</button>
+    <h2 th:text="${message}"></h2>
+</form>
+
+
+
+<!--<div>-->
+<!--    <img th:src="@{/imagesByUsers/{id}.png(id=${user.getId()})}">-->
+<!--</div>-->
+
+<br/>
+<hr/>
+
 <a href="/product/main">Main Page</a>
 
 
