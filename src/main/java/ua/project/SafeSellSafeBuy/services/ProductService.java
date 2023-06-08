@@ -7,7 +7,13 @@ import ua.project.SafeSellSafeBuy.models.Product;
 import ua.project.SafeSellSafeBuy.models.User;
 import ua.project.SafeSellSafeBuy.repositories.ProductRepositories;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class ProductService {
@@ -43,6 +49,10 @@ public class ProductService {
         User user = usersService.findById(userId);
         user.setSellProducts(product);
         usersService.update(user.getId(), user);
+
+        for (int i = 0; i < 3; i++) {
+            standardAvatarForProduct(product.getId(), i);
+        }
     }
 
 
@@ -78,5 +88,19 @@ public class ProductService {
                         "Password in game: " + productWithBuyer.getPassword_in_game() + "\n" +
                         "Secret question:" + productWithBuyer.getSecret_question() + "\n" +
                         "Secret answer:" + productWithBuyer.getSecret_answer());
+    }
+
+    public void standardAvatarForProduct(int id, int numberOfArt) {
+        Random random = new Random();
+        Path source = Paths.get(
+                "C:/Users/support/Desktop/SafeSellSafeBuy/src/main/resources/static/imagesByProduct/standardAva.png");
+        try {
+            // rename a file in the same directory
+            Files.copy(source, source.resolveSibling(id + "." + numberOfArt + ".png"),
+                    StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

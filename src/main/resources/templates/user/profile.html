@@ -6,6 +6,9 @@
 </head>
 <body>
 
+<div>
+    <img th:src="@{/imagesByUsers/{id}.png(id=${user.getId()})}">
+</div>
 
 <a th:text="${user.getFirst_name()}">user</a>
 <br/>
@@ -72,9 +75,7 @@
     <h2 th:text="${message}"></h2>
 </form>
 
-<div>
-    <img th:src="@{/imagesByUsers/{id}.png(id=${user.getId()})}">
-</div>
+
 
 
 </body>

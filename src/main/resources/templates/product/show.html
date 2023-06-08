@@ -6,6 +6,17 @@
 </head>
 <body>
 
+<div>
+    <img th:src="@{/imagesByProduct/{id}.0.png(id=${product.getId()})}">
+</div>
+<div>
+    <img th:src="@{/imagesByProduct/{id}.1.png(id=${product.getId()})}">
+</div>
+<div>
+    <img th:src="@{/imagesByProduct/{id}.2.png(id=${product.getId()})}">
+</div>
+
+
 <a th:text="${product.getTitle()}">product</a>
 <br/>
 <a th:text="${product.getPrice()}">product</a>
@@ -36,9 +47,9 @@
 <div th:if="${product.getBuyer() != null}">
     <p>buys:</p>
     <br/>
-        <a th:href="@{/user/{id}(id=${product.getBuyer().getId()})}">
-            <p th:text="${product.getBuyer().getFirst_name() + ', ' + product.getBuyer().getLast_name() }"</p>
-        </a>
+    <a th:href="@{/user/{id}(id=${product.getBuyer().getId()})}">
+        <p th:text="${product.getBuyer().getFirst_name() + ', ' + product.getBuyer().getLast_name() }"</p>
+    </a>
 </div>
 
 <br/>
@@ -51,23 +62,24 @@
 <!--    <input type="file" name="files" /><br/>-->
 <!--    <input type="submit" value="Submit" />-->
 <!--</form>-->
-
-<form method="POST" th:action="@{/product/uploadMulti}" enctype="multipart/form-data">
-    <input type="file" name="files" /><br/>
-    <input type="file" name="files" /><br/>
-    <input type="file" name="files" /><br/>
-    <button type="submit"> Add</button>
-    <h2 th:text="${message}"></h2>
-</form>
-
+<div th:if="${product.getSeller().getId() == findNowUser.getId()}">
+    <form method="POST" th:action="@{/product/uploadMulti/{id}(id=${product.getId()})}" enctype="multipart/form-data">
+        <input type="file" name="files"/><br/>
+        <input type="file" name="files"/><br/>
+        <input type="file" name="files"/><br/>
+        <button type="submit"> Add</button>
+        <h2 th:text="${message}"></h2>
+    </form>
+    <br/>
+    <hr/>
+</div>
 
 
 <!--<div>-->
 <!--    <img th:src="@{/imagesByUsers/{id}.png(id=${user.getId()})}">-->
 <!--</div>-->
 
-<br/>
-<hr/>
+
 
 <a href="/product/main">Main Page</a>
 

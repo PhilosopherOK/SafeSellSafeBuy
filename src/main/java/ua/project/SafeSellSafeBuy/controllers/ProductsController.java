@@ -48,6 +48,7 @@ public class ProductsController {
         User userMain = userService.findNowUser();
         model.addAttribute("user", userMain);
         model.addAttribute("product", productService.findById(id));
+        model.addAttribute("findNowUser", userService.findNowUser());
         return "product/show";
     }
 
@@ -119,37 +120,38 @@ public class ProductsController {
 //    https://mkyong.com/spring-mvc/spring-mvc-file-upload-example/
 //      https://mkyong.com/spring-boot/spring-boot-file-upload-example/
 //    https://mkyong.com/spring/spring-mvc-file-upload-example-commons-fileupload/
-    @PostMapping("/uploadMulti")
+    @PostMapping("/uploadMulti/{id}")
     public String multiFileUpload(@RequestParam("files") MultipartFile[] files,
+                                  @PathVariable("id") int id,
                                   RedirectAttributes redirectAttributes) {
 
         int tempId = 0;
         for (MultipartFile file : files) {
             if (file.isEmpty()) {
-                redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-                return "redirect:/product/show";
-            }
-            if (!file.getContentType().equals("image/png") && !file.getContentType().equals("image/jpeg")) {
-                redirectAttributes.addFlashAttribute("message", "Please select file with png or jpg format");
-                return "redirect:/product/show";
-            }
-
-            try {
-                if (file != null) {
-                    File uploadDir = new File(uploadPath);
-                    if (!uploadDir.exists()) {
-                        uploadDir.mkdir();
-                    }
-                    file.transferTo(new File(uploadPath + "/" + userService.findNowUser().getId() + "." + tempId+ ".png"));
-                    redirectAttributes.addFlashAttribute("message",
-                            "You successfully uploaded '" + file.getOriginalFilename() + "'");
+                productService.standardAvatarForProduct(id, tempId);
+            } else {
+                if (!file.getContentType().equals("image/png") && !file.getContentType().equals("image/jpeg")) {
+                    redirectAttributes.addFlashAttribute("message", "Please select file with png or jpg format");
+                    return "redirect:/product/" + id;
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+
+                try {
+                    if (file != null) {
+                        File uploadDir = new File(uploadPath);
+                        if (!uploadDir.exists()) {
+                            uploadDir.mkdir();
+                        }
+                        file.transferTo(new File(uploadPath + "/" + id + "." + tempId + ".png"));
+                        redirectAttributes.addFlashAttribute("message",
+                                "You successfully uploaded all images :)");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             tempId++;
         }
-        return "redirect:/product/create";
+        return "redirect:/product/" + id;
     }
 
 

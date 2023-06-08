@@ -6,6 +6,10 @@
 </head>
 <body>
 
+<div>
+    <img th:src="@{/imagesByUsers/{id}.png(id=${user.getId()})}" width="120" height="100">
+</div>
+
 <a th:text="${user.getFirst_name()}">user</a>
 <br/>
 <a th:text="${user.getLast_name()}">user</a>
