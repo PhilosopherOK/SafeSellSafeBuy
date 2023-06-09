@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 
+
+
 @SpringBootApplication
 public class SafeSellSafeBuyApplication {
     public static void main(String[] args) {
@@ -16,6 +18,5 @@ public class SafeSellSafeBuyApplication {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
 
 }
