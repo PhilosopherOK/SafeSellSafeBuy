@@ -3,11 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>User Profile</title>
+
+    <style>
+        body {
+            background-color: rgb(98, 98, 101);
+            background-image: url(../../auth/2.jpg);
+            background-size: 100vw;
+            background-repeat: no-repeat;
+        }
+        *{
+            outline:none;
+        }
+    </style>
 </head>
 <body>
 
 <div>
-    <img th:src="@{/imagesByUsers/{id}.png(id=${user.getId()})}">
+    <img th:src="@{/imagesByUsers/{id}.png(id=${user.getId()})}" width="140" height="140">
 </div>
 
 <a th:text="${user.getFirst_name()}">user</a>
@@ -22,9 +34,8 @@
 <div th:if="${user.getCardNumber() != null}">
     <p th:text="${user.getCardNumber()}">cardNumber</p>
 </div>
-
 <br/>
-<hr/>
+
 <div th:if!="${user.getSellProducts().isEmpty()}">
     <p>sells:</p>
     <br/>
@@ -42,9 +53,7 @@
 <form th:method="GET" th:action="@{/product/{id}/create(id=${user.getId()})}">
     <input type="submit" value="Create new product"/>
 </form>
-
 <br/>
-<hr/>
 
 <div th:if!="${user.getBuyProducts().isEmpty()}">
     <p>buys:</p>
@@ -55,13 +64,10 @@
         <hr/>
     </div>
 </div>
-
 <br/>
 
 <a href="/product/main">Main Page</a>
-
 <br/>
-<hr/>
 
 
 <form th:action="@{/logout}" th:method="POST">
