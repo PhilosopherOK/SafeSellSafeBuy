@@ -38,15 +38,10 @@
 <hr/>
 
 <div th:if="${product.getBuyer() == null && product.getSeller().getId() != user.getId()}">
-    <form th:method="GET" th:action="@{/product/{id}/buy(id=${product.getId})}">
-        <input type="submit" value="Buy !"/>
+    <form th:method="GET" th:action="@{/payment/checkout/{id}(id=${product.getId})}">
+        <input type="submit" value="Buy now!"/>
     </form>
 </div>
-<!--<form th:method="POST" th:action="@{/product/{id}/buy(id=${product.getId})}">-->
-<!--    <input type="submit" value="Buy !"/>-->
-<!--</form>-->
-
-
 
 
 

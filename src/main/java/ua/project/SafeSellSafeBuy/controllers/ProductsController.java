@@ -73,19 +73,6 @@ public class ProductsController {
         return "redirect:/user/profile";
     }
 
-
-    @PostMapping("/{id}/buy")
-    public String takeOnBuy(@PathVariable("id") int productId, Model model) {
-        User userMain = userService.findNowUser();
-
-        Product productOnBuy = productService.findById(productId);
-
-        productService.addProductForBuyer(userMain.getId(), productId);
-
-        return "redirect:/product/" + productId;
-    }
-
-
     @GetMapping("/{id}/update")
     public String updateProductG(@PathVariable("id") int id, Model model) {
         model.addAttribute("product", productService.findById(id));
