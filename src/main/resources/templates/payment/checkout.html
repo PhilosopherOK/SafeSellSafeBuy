@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+<!--    <title>Accept a payment</title>-->
+<!--    <meta name="description" content="A demo of a payment on Stripe" />-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1" />-->
+<!--    <script src="https://js.stripe.com/v3/"></script>-->
+    <script src="../../checkout.js" defer></script>
+</head>
+<body>
+
+<form action='/charge' method='POST' id='checkout-form'>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <input type='hidden' th:value='${amount}' name='amount' />
+    <label>Price:<span th:text='${amount/100}' /></label>
+    <!-- NOTE: data-key/data-amount/data-currency will be rendered by Thymeleaf -->
+    <script
+            src='https://checkout.stripe.com/checkout.js'
+            class='stripe-button'
+            th:attr='data-key=${stripePublicKey},
+         data-amount=${amount},
+         data-currency=${currency}'
+            data-name='SafeSellSafeBuy'
+            data-description='Safe with us'
+            data-image
+                    ='https://yt3.googleusercontent.com/T8xNfcix2LzksdeLiz_IICHUvlidKPpbyhINDQCDKk6uK8Zq3WyPN8wnIdcee9gZ5AWQRdGrpQ=s176-c-k-c0x00ffffff-no-rj'
+            data-locale='auto'
+            data-zip-code='false'>
+    </script>
+</form>
+
+
+</body>
+</html>

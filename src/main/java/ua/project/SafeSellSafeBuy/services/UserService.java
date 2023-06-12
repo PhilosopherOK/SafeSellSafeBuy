@@ -29,7 +29,7 @@ public class UserService {
     private final EmailSenderService senderService;
 
     @Value("${upload.user.path}")
-    private String uploadPath;
+    private String uploadUserPath;
 
     @Autowired
     public UserService(UserRepositories userRepositories, PasswordEncoder passwordEncoder, ProductRepositories productRepositories, EmailSenderService senderService) {
@@ -88,7 +88,7 @@ public class UserService {
     private void standardAvatar(User user) {
         Random random = new Random();
         Path source = Paths.get(
-                "C:/Users/support/Desktop/SafeSellSafeBuy/src/main/resources/static/imagesByUsers/standardAva"
+                uploadUserPath + "/standardAva"
                         + (1 + random.nextInt(7)) + ".png");
         try {
             // rename a file in the same directory

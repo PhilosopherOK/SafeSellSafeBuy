@@ -2,6 +2,7 @@ package ua.project.SafeSellSafeBuy.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ua.project.SafeSellSafeBuy.models.Product;
 import ua.project.SafeSellSafeBuy.models.User;
@@ -20,6 +21,9 @@ public class ProductService {
     private final ProductRepositories productRepositories;
     private final UserService usersService;
     private final EmailSenderService senderService;
+
+    @Value("${upload.product.path}")
+    private String uploadProductPath;
 
     @Autowired
     public ProductService(ProductRepositories productRepositories,
@@ -93,7 +97,7 @@ public class ProductService {
     public void standardAvatarForProduct(int id, int numberOfArt) {
         Random random = new Random();
         Path source = Paths.get(
-                "C:/Users/support/Desktop/SafeSellSafeBuy/src/main/resources/static/imagesByProduct/standardAva.png");
+                uploadProductPath + "/standardAva.png");
         try {
             // rename a file in the same directory
             Files.copy(source, source.resolveSibling(id + "." + numberOfArt + ".png"),

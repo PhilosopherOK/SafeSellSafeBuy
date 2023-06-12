@@ -27,6 +27,9 @@ public class ProductsController {
     private final ProductForCheckService productForCheckService;
     private final UserService userService;
     private final ModelMapper modelMapper;
+    @Value("${upload.product.path}")
+    private String uploadProductPath;
+
 
     @Autowired
     public ProductsController(ProductService productService,
@@ -111,15 +114,10 @@ public class ProductsController {
     }
 
 
-
-
-    @Value("${upload.product.path}")
-    private String uploadPath;
-
-
 //    https://mkyong.com/spring-mvc/spring-mvc-file-upload-example/
 //      https://mkyong.com/spring-boot/spring-boot-file-upload-example/
 //    https://mkyong.com/spring/spring-mvc-file-upload-example-commons-fileupload/
+
     @PostMapping("/uploadMulti/{id}")
     public String multiFileUpload(@RequestParam("files") MultipartFile[] files,
                                   @PathVariable("id") int id,
@@ -137,11 +135,11 @@ public class ProductsController {
 
                 try {
                     if (file != null) {
-                        File uploadDir = new File(uploadPath);
+                        File uploadDir = new File("/" + uploadProductPath);
                         if (!uploadDir.exists()) {
                             uploadDir.mkdir();
                         }
-                        file.transferTo(new File(uploadPath + "/" + id + "." + tempId + ".png"));
+                        file.transferTo(new File("/" + uploadProductPath + "/" + id + "." + tempId + ".png"));
                         redirectAttributes.addFlashAttribute("message",
                                 "You successfully uploaded all images :)");
                     }

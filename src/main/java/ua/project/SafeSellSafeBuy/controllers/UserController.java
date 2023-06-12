@@ -27,6 +27,9 @@ public class UserController {
     private final UserValidator userValidator;
     private final ProductForCheckService productForCheckService;
     private final ModelMapper modelMapper;
+    @Value("${upload.user.path}")
+    private String uploadUserPath;
+
 
 
     @Autowired
@@ -96,9 +99,6 @@ public class UserController {
     }
 
 
-    @Value("${upload.user.path}")
-    private String uploadPath;
-
 
 
     //https://mkyong.com/spring-mvc/spring-mvc-file-upload-example/
@@ -120,11 +120,11 @@ public class UserController {
 
         try {
             if (file != null) {
-                File uploadDir = new File(uploadPath);
+                File uploadDir = new File("/" + uploadUserPath);
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();
                 }
-                file.transferTo(new File(uploadPath + "/" + userService.findNowUser().getId() + ".png"));
+                file.transferTo(new File("/" + uploadUserPath + "/" + userService.findNowUser().getId() + ".png"));
                 redirectAttributes.addFlashAttribute("message",
                         "You successfully uploaded '" + file.getOriginalFilename() + "'");
             }
