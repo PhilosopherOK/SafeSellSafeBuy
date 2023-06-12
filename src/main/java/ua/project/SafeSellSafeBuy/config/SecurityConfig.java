@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import ua.project.SafeSellSafeBuy.services.UserDetailsService;
 
 @EnableWebSecurity
@@ -27,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/auth/login", "/user/create", "/error").permitAll()
+                .antMatchers("/auth/login", "/user/create", "/error",
+                        "/**/*.js", "/**/*.css","/**/*.jpg","/**/*.png").permitAll()
                 .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
                 .formLogin().loginPage("/auth/login")
@@ -54,3 +56,50 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
+
+
+//     WebMvcConfigurationSupport
+//    В последней версии Spring Security 6 свойство WebSecurityConfigurerAdapter устарело.
+//
+//        Вместо этого объявите WebSecurityCustomizer bean-компонент.
+//
+//@Bean
+//public WebSecurityCustomizer ignoringCustomizer() {
+//        return (web) -> web.ignoring().requestMatchers("...");
+//        }
+//
+//        Это работает для весенней безопасности 6.0.*
+//
+//@Bean
+//public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//
+//
+//        http
+//        .csrf()
+//        .disable()
+//        .authorizeHttpRequests()
+//        .requestMatchers(
+//        "/home/**",
+//        "/login/**",
+//        "/account/starter/**",
+//        "/register/**",
+//        "/plugins/**",
+//        "/dist/**",
+//        "/js/**",
+//        "/**/favicon.ico").permitAll()
+//        .and()
+//        .httpBasic()
+//        .and()
+//        .sessionManagement()
+//        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//
+//        return http.build();
+//        }
+//
+//
+//        "/plugins/**",
+//        "/dist/**",
+//        "/js/**",
+//        ... они расположены в resources/
+//
+//        plugins, dist, js — это названия каталогов с ресурсами
