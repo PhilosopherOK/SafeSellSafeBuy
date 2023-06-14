@@ -83,8 +83,9 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, @PathVariable("id") int id,
-                         BindingResult bindingResult) {
+    public String update(@ModelAttribute("user") @Valid User user,
+                         @PathVariable("id") int id, BindingResult bindingResult) {
+        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors())
             return "user/update";
 
@@ -99,12 +100,9 @@ public class UserController {
     }
 
 
-
-
     //https://mkyong.com/spring-mvc/spring-mvc-file-upload-example/
     //https://mkyong.com/spring-boot/spring-boot-configure-maxswallowsize-in-embedded-tomcat/
     //https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix.application-properties
-
     @PostMapping("/upload")
     public String add(@RequestParam("file") MultipartFile file,
                       RedirectAttributes redirectAttributes) {

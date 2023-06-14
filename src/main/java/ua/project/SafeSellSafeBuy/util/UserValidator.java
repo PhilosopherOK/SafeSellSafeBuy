@@ -30,5 +30,8 @@ public class UserValidator implements Validator {
         if(userService.findByUsername(user.getUsername()) != null){
             errors.rejectValue("username", "", "User with this username is present");
         }
+        if(userService.findByUser_email(user.getUserEmail()) != null){
+            errors.rejectValue("userEmail", "", "Email is already taken, please choose another one");
+        }
     }
 }

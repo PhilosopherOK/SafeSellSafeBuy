@@ -19,9 +19,9 @@
     <input type="text" th:field="*{date_of_birthday}" id="date_of_birthday"/>
     <div style="color:red" th:if="${#fields.hasErrors('date_of_birthday')}" th:errors="*{date_of_birthday}">date_of_birthday Error</div>
     <br/>
-    <label for="user_email">Enter user_email</label>
-    <input type="text" th:field="*{user_email}" id="user_email"/>
-    <div style="color:red" th:if="${#fields.hasErrors('user_email')}" th:errors="*{user_email}">user_email Error</div>
+    <label for="userEmail">Enter userEmail</label>
+    <input type="text" th:field="*{userEmail}" id="userEmail"/>
+    <div style="color:red" th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}">userEmail Error</div>
     <br/>
     <label for="username">Enter username: </label>
     <input type="text" th:field="*{username}" id="username"/>

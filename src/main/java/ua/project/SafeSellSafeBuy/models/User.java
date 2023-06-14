@@ -35,7 +35,7 @@ public class User {
     @Email(message = "Must be right email")
     @NotNull(message = "user_email should be not empty!")
     @Column(name = "user_email")
-    private String user_email;
+    private String userEmail;
 
     @Column(name = "cardNumber")
     private String cardNumber;
@@ -62,11 +62,11 @@ public class User {
     }
 
     public User(String first_name, String last_name, Date date_of_birthday,
-                String user_email, String username, String password) {
+                String userEmail, String username, String password) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.date_of_birthday = date_of_birthday;
-        this.user_email = user_email;
+        this.userEmail = userEmail;
         this.username = username;
         this.password = password;
     }
@@ -103,12 +103,12 @@ public class User {
         this.date_of_birthday = date_of_birthday;
     }
 
-    public String getUser_email() {
-        return user_email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUser_email(String user_email) {
-        this.user_email = user_email;
+    public void setUserEmail(String user_email) {
+        this.userEmail = user_email;
     }
 
     public String getCardNumber() {

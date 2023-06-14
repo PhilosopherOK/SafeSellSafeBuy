@@ -6,6 +6,14 @@
 </head>
 <body>
 
+<form th:method="POST" th:action="@{/logout}" >
+    <input type="submit" value="Logout"/>
+</form>
+
+<form  th:method="GET" th:action="@{/product/main}">
+    <input type="submit" value="Main Page"/>
+</form>
+
 <form th:method="GET" th:action="@{/user/profile}">
     <input type="submit" value="Profile"/>
 </form>

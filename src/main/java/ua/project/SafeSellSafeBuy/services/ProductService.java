@@ -92,7 +92,7 @@ public class ProductService {
         usersService.update(user.getId(), user);
         updateProduct(productWithBuyer.getId(), productWithBuyer);
 
-        senderService.sendEmail(user.getUser_email(),
+        senderService.sendEmail(user.getUserEmail(),
                 productWithBuyer.getTitle(),
                 "Email in game: " + productWithBuyer.getEmail_in_game() + "\n" +
                         "Login in game: " + productWithBuyer.getLogin_in_game() + "\n" +

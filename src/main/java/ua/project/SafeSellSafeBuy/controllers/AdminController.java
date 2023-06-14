@@ -59,7 +59,7 @@ public class AdminController {
         ProductForCheck productForCheck = productForCheckService.findById(id);
         User user = productForCheck.getSeller();
 
-        senderService.sendEmail(user.getUser_email(),
+        senderService.sendEmail(user.getUserEmail(),
                 productForCheck.getTitle() + "kind regards Team safe sell safe buy !",
                 "Dear " + user.getUsername() + "\n" +
                         "your product has not passed the test and cannot be listed," + "\n" +

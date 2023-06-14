@@ -18,6 +18,29 @@
 </head>
 <body>
 
+<form th:method="POST" th:action="@{/logout}" >
+    <input type="submit" value="Logout"/>
+</form>
+
+<form  th:method="GET" th:action="@{/product/main}">
+    <input type="submit" value="Main Page"/>
+</form>
+
+<form th:method="GET" th:action="@{/user/profile}">
+    <input type="submit" value="Profile"/>
+</form>
+
+<form th:method="GET" th:action="@{/user/update/{id}(id=${user.getId()})}">
+    <input type="submit" value="Update profile"/>
+</form>
+
+<div th:if="${user.getRole() == 'ROLE_ADMIN'}">
+    <form th:method="GET" th:action="@{/admin/checkOrder}">
+        <input type="submit" value="AdminPage"/>
+    </form>
+</div>
+
+
 <div>
     <img th:src="@{/imagesByUsers/{id}.png(id=${user.getId()})}" width="140" height="140">
 </div>
@@ -28,7 +51,7 @@
 <br/>
 <a th:text="${user.getDate_of_birthday()}">user</a>
 <br/>
-<a th:text="${user.getUser_email()}">user</a>
+<a th:text="${user.getUserEmail()}">user</a>
 <br/>
 
 <div th:if="${user.getCardNumber() != null}">
@@ -65,14 +88,6 @@
     </div>
 </div>
 <br/>
-
-<a href="/product/main">Main Page</a>
-<br/>
-
-
-<form th:action="@{/logout}" th:method="POST">
-    <input type="submit" value="Logout"/>
-</form>
 
 
 <form method="post" th:action="@{/user/upload}" enctype="multipart/form-data">

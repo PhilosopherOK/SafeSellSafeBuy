@@ -6,6 +6,18 @@
 </head>
 <body>
 
+<form th:method="POST" th:action="@{/logout}" >
+    <input type="submit" value="Logout"/>
+</form>
+
+<form  th:method="GET" th:action="@{/product/main}">
+    <input type="submit" value="Main Page"/>
+</form>
+
+<form th:method="GET" th:action="@{/user/profile}">
+    <input type="submit" value="Profile"/>
+</form>
+
 <div>
     <img th:src="@{/imagesByUsers/{id}.png(id=${user.getId()})}" width="120" height="100">
 </div>

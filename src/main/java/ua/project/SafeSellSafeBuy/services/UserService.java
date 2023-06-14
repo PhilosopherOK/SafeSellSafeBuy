@@ -57,6 +57,11 @@ public class UserService {
         return userRepositories.findByUsername(username).orElse(null);
     }
 
+    @Transactional(readOnly = true)
+    public User findByUser_email(String user_email){
+        return userRepositories.findByUserEmail(user_email).orElse(null);
+    }
+
     public void update(int id, User user) {
         user.setId(id);
         userRepositories.save(user);
