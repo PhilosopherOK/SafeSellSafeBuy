@@ -3,6 +3,7 @@ package ua.project.SafeSellSafeBuy.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ua.project.SafeSellSafeBuy.models.Product;
 import ua.project.SafeSellSafeBuy.models.User;
@@ -33,6 +34,12 @@ public class ProductService {
         this.senderService = senderService;
     }
 
+    public List<Product> allProduct(Integer page) {
+        if (page == null) {
+            page = 0;
+        }
+        return productRepositories.findAll(PageRequest.of(page, 10)).getContent();
+    }
     public List<Product> allProduct() {
         return productRepositories.findAll();
     }

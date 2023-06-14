@@ -13,10 +13,17 @@
 
 <div th:each="product : ${products}">
     <div th:if="${product.getBuyer() == null}">
-    <a th:href="@{/product/{id}(id=${product.getId()})}"><p th:text="${product.getTitle()}"</p></a>
-    <p th:text="${product.getPrice() + ', ' + product.getShort_description()}">product</p>
-    <hr/>
+        <div>
+            <img th:src="@{/imagesByProduct/{id}.0.png(id=${product.getId()})}" width="140" height="140">
+        </div>
+        <a th:href="@{/product/{id}(id=${product.getId()})}"><p th:text="${product.getTitle()}"</p></a>
+        <p th:text="${product.getPrice() + ', ' + product.getShort_description()}">product</p>
+        <br/>
     </div>
+</div>
+
+<div th:each="pageNum : ${countPage}">
+    <a th:href="@{/product/main(page=${pageNum})}"><p th:text="${pageNum}"</p></a>
 </div>
 
 

@@ -19,6 +19,12 @@ import ua.project.SafeSellSafeBuy.services.UserService;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/product")
@@ -41,8 +47,15 @@ public class ProductsController {
     }
 
     @GetMapping("/main")
-    public String mainPage(Model model) {
-        model.addAttribute("products", productService.allProduct());
+    public String mainPage(@RequestParam(value = "page", required = false) Integer page, Model model) {
+
+        List<Integer> listOfPage = new ArrayList<>();
+        for (int i = 0; i <= Math.ceil(productService.allProduct().size() / 10); i++) {
+            listOfPage.add(i);
+        }
+
+        model.addAttribute("products", productService.allProduct(page));
+        model.addAttribute("countPage", listOfPage);
         return "product/main";
     }
 

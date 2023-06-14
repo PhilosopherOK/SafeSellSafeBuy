@@ -75,7 +75,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/{id}/update")
+    @GetMapping("/update/{id}")
     public String updateBlanc(@PathVariable("id") int id,
                               Model model) {
         model.addAttribute("user", userService.findById(id));
