@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Random;
 
 
@@ -37,6 +38,10 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.productRepositories = productRepositories;
         this.senderService = senderService;
+    }
+
+    public List<User> findAll(){
+        return userRepositories.findAll();
     }
 
     public User findNowUser() {
@@ -64,6 +69,7 @@ public class UserService {
 
     public void update(int id, User user) {
         user.setId(id);
+        user.setRole(findNowUser().getRole());
         userRepositories.save(user);
     }
 

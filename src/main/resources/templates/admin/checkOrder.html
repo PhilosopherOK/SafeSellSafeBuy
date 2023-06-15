@@ -10,6 +10,18 @@
     <input type="submit" value="Profile"/>
 </form>
 
+<form th:method="PATCH" th:action="@{/admin/addAdmin}">
+    <label for="user"> Take a person for admin</label>
+    <select th:object="${user}" th:field="*{id}" id="user">
+        <option th:each="user : ${users}" th:value="${user.getId()}"
+                th:text="${user.getUsername}"></option>
+    </select>
+
+    <input type="submit" value="add to admin">
+</form>
+
+
+Product under consideration:
 
 <div th:each="product : ${listProductForCheck}">
     <p th:text="${product.getTitle()}">product</p>

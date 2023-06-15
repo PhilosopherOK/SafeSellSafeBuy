@@ -5,10 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ua.project.SafeSellSafeBuy.models.Product;
 import ua.project.SafeSellSafeBuy.models.ProductForCheck;
 import ua.project.SafeSellSafeBuy.models.User;
@@ -37,9 +34,18 @@ public class AdminController {
     }
 
     @GetMapping("/checkOrder")
-    public String checkOrder(Model model){
+    public String checkOrder(Model model, @ModelAttribute("user") User user){
         model.addAttribute("listProductForCheck", productForCheckService.findAll());
+        model.addAttribute("users", userService.findAll());
         return "admin/checkOrder";
+    }
+
+    @PatchMapping("/addAdmin")
+    public String addAdmin(@ModelAttribute("user") User user){
+        User userForAdmin = userService.findById(user.getId());
+        userForAdmin.setRole("ROLE_ADMIN");
+        userService.update(userForAdmin.getId(), userForAdmin);
+        return "redirect:/admin/checkOrder";
     }
 
     @PostMapping("/checkOrder/good/{id}")

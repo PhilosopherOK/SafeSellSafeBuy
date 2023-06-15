@@ -90,7 +90,7 @@ public class UserController {
             return "user/update";
 
         userService.update(id, user);
-        return "redirect:/user/"+id;
+        return "redirect:/user/profile";
     }
 
     @DeleteMapping("/{id}")

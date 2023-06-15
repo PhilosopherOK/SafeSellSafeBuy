@@ -33,11 +33,12 @@ public class User {
     private Date date_of_birthday;
 
     @Email(message = "Must be right email")
-    @NotNull(message = "user_email should be not empty!")
+    @NotNull(message = "user email should be not empty!")
     @Column(name = "user_email")
     private String userEmail;
 
     @Column(name = "cardNumber")
+    @Size(min = 15,max = 17, message = "must be 16 numbers")
     private String cardNumber;
 
     @OneToMany(mappedBy = "seller", fetch = FetchType.EAGER)
@@ -53,6 +54,7 @@ public class User {
 
     @Column(name = "userPassword")
     @NotNull(message = "password should be not empty!")
+    @Size(min = 6, message = "password should be more than 6 letters")
     private String password;
 
     @Column(name = "role")
