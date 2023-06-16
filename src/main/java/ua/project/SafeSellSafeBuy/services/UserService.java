@@ -70,9 +70,15 @@ public class UserService {
     public void update(int id, User user) {
         user.setId(id);
         user.setRole(findNowUser().getRole());
+        user.setPassword(findNowUser().getPassword());
         userRepositories.save(user);
     }
 
+    public void updatePass(int id, String newPass){
+        User user = findNowUser();
+        user.setPassword(passwordEncoder.encode(newPass));
+        userRepositories.save(user);
+    }
 
     public void create(User user) {
         int temp;

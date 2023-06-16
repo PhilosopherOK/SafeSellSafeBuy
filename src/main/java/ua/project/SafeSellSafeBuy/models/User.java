@@ -53,7 +53,7 @@ public class User {
     private String username;
 
     @Column(name = "userPassword")
-    @NotNull(message = "password should be not empty!")
+//    @NotNull(message = "password should be not empty!")
     @Size(min = 6, message = "password should be more than 6 letters")
     private String password;
 
